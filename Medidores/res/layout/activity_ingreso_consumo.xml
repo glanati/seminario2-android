@@ -68,7 +68,7 @@
         android:layout_marginTop="43dp"
         android:background="#088A08"
         android:onClick="guardar"
-        android:text="Guardar lectura"
+        android:text="@string/guardar_lectura"
         android:textColor="#FFFFFF" />
         
 </RelativeLayout>

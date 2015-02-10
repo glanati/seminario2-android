@@ -22,7 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
-            android:text="Criterios de seleccion"
+            android:text="@string/criterios_seleccion"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/tv4"
             android:layout_marginTop="30dp"
-            android:text="Ingrese ruta de medición"
+            android:text="@string/ingrese_ruta_med"
             android:textColor="#FFFFFF" />
 
         <EditText
@@ -58,7 +58,7 @@
             android:layout_below="@+id/button1"
             android:layout_marginTop="20dp"
             android:onClick="cargaregistros"
-            android:text="Cargar registros" />
+            android:text="@string/cargar_registros" />
 
         <RadioGroup
             android:id="@+id/radioGroup1"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="22dp"
-                android:text="Ascendente"
+                android:text="@string/ascendente"
                 android:textColor="#FFFFFF" />
 
             <RadioButton
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Descendente"
+                android:text="@string/descendente"
                 android:textColor="#FFFFFF" />
         </RadioGroup>
 
@@ -95,7 +95,7 @@
             android:layout_marginTop="32dp"
             android:background="#0101DF"
             android:onClick="ingresolecturas"
-            android:text="Ingreso lecturas"
+            android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>

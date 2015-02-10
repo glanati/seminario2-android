@@ -15,7 +15,6 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/gridLayout1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="19dp"
@@ -40,7 +39,7 @@
             android:layout_marginTop="14dp"
             android:drawableLeft="@drawable/medidor"
             android:onClick="lanzar"
-            android:text="Ingreso lecturas"
+            android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -51,7 +50,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/button1"
             android:drawableLeft="@drawable/importacion"
-            android:text="Importación"
+            android:text="@string/importacion"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -62,7 +61,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/button2"
             android:drawableLeft="@drawable/exportacion"
-            android:text="Exportación"
+            android:text="@string/exportacion"
             android:textColor="#FFFFFF" />
 
         <ImageView
@@ -72,7 +71,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="34dp"
-            android:src="@drawable/tausoft" />
+            android:src="@drawable/tausoft"
+            android:contentDescription="@string/imagen_tausoft" />
 
     </RelativeLayout>
 

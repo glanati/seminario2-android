@@ -6,5 +6,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ingreso_lecturas">Listado de domicilios</string>
     <string name="title_activity_ingreso_consumo">Ingreso de consumo</string>
+    <string name="ingreso_lecturas">Ingreso lecturas</string>
+    <string name="importacion">Importación</string>
+    <string name="exportacion">Exportación</string>
+    <string name="imagen_tausoft">Tausoft</string>
+    <string name="criterios_seleccion">Criterios de selección</string>
+    <string name="ingrese_ruta_med">Ingrese ruta de medición</string>
+    <string name="cargar_registros">Cargar registros</string>
+    <string name="ascendente">Ascendente</string>
+    <string name="descendente">Descendente</string>
+    <string name="guardar_lectura">Guardar lectura</string>
 
 </resources>
