@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Medidores</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_ingreso_lecturas">Listado de domicilios</string>
+    <string name="title_activity_ingreso_consumo">Ingreso de consumo</string>
+
+</resources>
