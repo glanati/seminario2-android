@@ -16,7 +16,7 @@
         android:layout_height="match_parent" >
 
         <TextView
-            android:id="@+id/tv4"
+            android:id="@+id/tv_crit_selecc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -27,21 +27,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv2"
+            android:id="@+id/tv_ruta_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv4"
+            android:layout_below="@+id/tv_crit_selecc"
             android:layout_marginTop="30dp"
             android:text="@string/ingrese_ruta_med"
             android:textColor="#FFFFFF" />
 
         <EditText
-            android:id="@+id/et1"
+            android:id="@+id/et_ruta_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv2"
+            android:layout_below="@+id/tv_ruta_med"
             android:ems="10"
             android:inputType="text|number"
             android:textColor="#FFFFFF" >
@@ -49,27 +49,16 @@
             <requestFocus />
         </EditText>
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/button1"
-            android:layout_marginTop="20dp"
-            android:onClick="cargaregistros"
-            android:text="@string/cargar_registros" />
-
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/radioGroup_criterio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/et1"
+            android:layout_below="@+id/et_ruta_med"
             android:layout_marginTop="16dp" >
 
             <RadioButton
-                android:id="@+id/radio0"
+                android:id="@+id/radio_asc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="22dp"
@@ -77,7 +66,7 @@
                 android:textColor="#FFFFFF" />
 
             <RadioButton
-                android:id="@+id/radio1"
+                android:id="@+id/radio_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -86,17 +75,28 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_lecturas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/radioGroup1"
+            android:layout_below="@+id/radioGroup_criterio"
             android:layout_marginTop="32dp"
             android:background="#0101DF"
             android:onClick="ingresolecturas"
             android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
+        
+        <Button
+            android:id="@+id/button_registros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/button_lecturas"
+            android:layout_marginTop="20dp"
+            android:onClick="cargaregistros"
+            android:text="@string/cargar_registros" />
 
     </RelativeLayout>
 

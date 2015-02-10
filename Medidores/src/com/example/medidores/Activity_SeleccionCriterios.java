@@ -8,14 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 public class Activity_SeleccionCriterios extends Activity {
 
-	private EditText et1;
-	private Button button1;
-	private RadioButton radio0;
-	private RadioButton radio1;
+	private EditText et_ruta_med;
+	private Button button_lecturas;
+	private RadioButton radio_asc;
+	private RadioButton radio_desc;
 	
 	
 	@Override
@@ -23,24 +22,27 @@ public class Activity_SeleccionCriterios extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.seleccion_criterios);
-		et1 = (EditText) findViewById(R.id.et1);
-		button1 = (Button) findViewById(R.id.button1);
-		radio0 = (RadioButton)findViewById(R.id.radio0);
-		radio1 = (RadioButton)findViewById(R.id.radio1);
+		et_ruta_med = (EditText) findViewById(R.id.et_ruta_med);
+		button_lecturas = (Button) findViewById(R.id.button_lecturas);
+		radio_asc = (RadioButton)findViewById(R.id.radio_asc);
+		radio_desc = (RadioButton)findViewById(R.id.radio_desc);
 		
 	}
 
 	 public void ingresolecturas(View view) {
-	      
+	      	
+		 	// creamos el elemento de comunicacion entre el activity_seleccionCriterios y el activity_ingreso_lecturas
 		 	Intent i = new Intent(this, IngresoLecturas.class);
-	        i.putExtra("rutamedidor", et1.getText().toString());
+		 	
+		 	// mediante el intent pasamos la información
+	        i.putExtra("rutamedidor", et_ruta_med.getText().toString());
 	        String sele = "";
 	       
-	        if(radio0.isChecked()){
+	        if(radio_asc.isChecked()){
 	       
 	        	sele = "asc";
 	        
-	        }else if(radio1.isChecked()){
+	        }else if(radio_desc.isChecked()){
 	        	
 	        	sele = "desc";
 	        

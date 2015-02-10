@@ -10,7 +10,7 @@
     tools:context=".IngresoConsumo" >
 
     <TextView
-        android:id="@+id/tv1"
+        android:id="@+id/tv_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,24 +22,24 @@
          />
 
     <TextView
-        android:id="@+id/tv2"
+        android:id="@+id/tv_calle_altura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv1"
+        android:layout_below="@+id/tv_nombre"
         android:layout_marginTop="24dp"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
          />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editText_lecActual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv2"
+        android:layout_below="@+id/tv_calle_altura"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="number"
@@ -49,12 +49,12 @@
     </EditText>
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/spinner_estado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/editText_lecActual"
         android:layout_marginTop="14dp"
         android:background="#FFFFFF" />
 
@@ -62,9 +62,9 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_alignRight="@+id/spinner1"
-        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@+id/spinner_estado"
+        android:layout_alignRight="@+id/spinner_estado"
+        android:layout_below="@+id/spinner_estado"
         android:layout_marginTop="43dp"
         android:background="#088A08"
         android:onClick="guardar"

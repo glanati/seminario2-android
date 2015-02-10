@@ -31,8 +31,8 @@ public class IngresoLecturas extends Activity {
 	private int rutamedidor;
 	private String orden;
 	private BaseDatos db2;
-	private ListView lv1;
-	private ArrayAdapter<Registro> adapter ;
+	private ListView lv_domicilios;
+	private ArrayAdapter<Registro> adapter;		// los adapters son una interfaz entre el modelo de datos y los controles de selección (textview, button, etc)
 	private ArrayAdapter<String> adapter2;
 	private ArrayList<Registro> array;
 	private String[] prueba;
@@ -44,18 +44,24 @@ public class IngresoLecturas extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_ingreso_lecturas);
 				
-			lv1 = (ListView) findViewById(R.id.listView1);
-			Bundle bundle = getIntent().getExtras();
+			lv_domicilios = (ListView) findViewById(R.id.listView_domicilios);
+			
+			// recupero al informacion pasada en el intent
+			Bundle bundle = this.getIntent().getExtras();
 			rutamedidor = Integer.parseInt(bundle.getString("rutamedidor"));
 			orden = bundle.getString("orden");
+			
+			
 			BaseDatos base = new BaseDatos(this,"Prueba",null,1);
 			SQLiteDatabase db = base.getWritableDatabase();
 			
-			
+			// Cursor interface: proporciona acceso de lectura y escritura aleatoria para el result set devuelto por una consulta de base de datos.
 			final Cursor fila;
-			Cursor consulta;
-			View view = new View(this);
 			
+			Cursor consulta;
+			View view = new View(this);		// se utiliza ??
+			
+			// ordena los registros segun el criterio seleccionado
 			if(orden.equals("asc")){
 			
 				
@@ -70,12 +76,13 @@ public class IngresoLecturas extends Activity {
 			
 			
 	        fila.moveToFirst();
-	        array = new ArrayList();
+	        array = new ArrayList<Registro>();
 	       
 	       
 	        
 	        do{
 	        	
+	        	// recupera los registros y los agrega al arrayList
 	        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
 	        	array.add(r);
 	        	
@@ -84,14 +91,17 @@ public class IngresoLecturas extends Activity {
 	        	//Toast.makeText(getApplicationContext(),fila.getString(1),Toast.LENGTH_SHORT).show();
 	       
 	        }while(fila.moveToNext());
-	        
+	        	
+	        	// creamos el Arrayadapter para listar los registros cargados
 	        	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
-	        	lv1.setAdapter(adapter);
+	        	
+	        	// seteamos los valores del adapter en el ListView
+	        	lv_domicilios.setAdapter(adapter);
 	        	
 	        	for (int i = 0; i < array.size(); i++) {
 				
-	        		Registro r = (Registro) lv1.getItemAtPosition(i);
-	        		int lecactual = r.getLecactual();
+	        		Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
+	        		int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
 	        		
 	        		if(lecactual != 0){
 	        			
@@ -101,23 +111,27 @@ public class IngresoLecturas extends Activity {
 	        		
 				}
 	        	
-	        	
-	        	lv1.setOnItemClickListener(new OnItemClickListener() {
+	        	// acción que se realiza cuando se clickea en algun item del ListView
+	        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
 	                 @Override
 	                 public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 	                     
 	                	//Toast.makeText(getApplicationContext(),array.get(position).getNombre(),Toast.LENGTH_SHORT).show();
 	                	 Intent in = new Intent();
-	                	 in.putExtra("id",array.get(position).getId());
+	                	 
+	                	// mediante el intent pasamos las información al activity_ingreso_consumo
+	                	 in.putExtra("id",array.get(position).getId());		// ID simula al numero de cuenta
 	                	 in.putExtra("calle",array.get(position).getCalle());
 	                	 in.putExtra("altura",array.get(position).getAltura());
 	                	 in.putExtra("nombre",array.get(position).getNombre());
 	                	 in.putExtra("lecturaanterior",array.get(position).getLecanterior());
-	                     in.setClass(getApplicationContext(), IngresoConsumo.class);
-	                     view.setBackgroundColor(Color.rgb(26, 192, 48));
-	                     startActivity(in);
 	                	 
-	                    
+	                	 
+	                     in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
+	                     view.setBackgroundColor(Color.rgb(26, 192, 48));
+	                     
+	                     startActivity(in);
+	                	   
 	                 }
 	             });
 	        	
@@ -128,10 +142,6 @@ public class IngresoLecturas extends Activity {
 	        
 	}
 	        	
-		
-	
-		
-	
      @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -168,8 +178,5 @@ public class IngresoLecturas extends Activity {
         	db.close();    
         
 		}*/
-		
-		
-	
-}
+	}
 }

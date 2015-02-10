@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 public class IngresoConsumo extends Activity {
 
-	private TextView tv1;
-	private TextView tv2;
-	private TextView tv4;
+	private TextView tv_nombre;
+	private TextView tv_calle_altura;
+//	private TextView tv4;
 	private ArrayAdapter<String> adapter;
-	private Spinner spi ;
-	private EditText et1;
+	private Spinner spinner_estado;
+	private EditText et_lecActual;
 	private int idfinal;
 	String[] arrayEstados = new String[]{"OK","Medidor Roto","Tapado","Ilegible","Sin medidor"};
 	
@@ -25,24 +25,28 @@ public class IngresoConsumo extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ingreso_consumo);
 		
-		tv1 = (TextView) findViewById(R.id.tv1);
-		tv2 = (TextView) findViewById(R.id.tv2);
-		et1 = (EditText)findViewById(R.id.editText1);
-		spi = (Spinner)findViewById(R.id.spinner1);
+		tv_nombre = (TextView) findViewById(R.id.tv_nombre);
+		tv_calle_altura = (TextView) findViewById(R.id.tv_calle_altura);
+		et_lecActual = (EditText)findViewById(R.id.editText_lecActual);
+		spinner_estado = (Spinner)findViewById(R.id.spinner_estado);
+		
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,arrayEstados);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-		spi.setAdapter(adapter);
-		Bundle bundle = getIntent().getExtras();
+		spinner_estado.setAdapter(adapter);
 		
+		// recupero la informacion pasada en el intent
+		Bundle bundle = getIntent().getExtras();
 		String nombre = bundle.getString("nombre").toString();
-		int id = bundle.getInt("id");
-		idfinal = id;
-		int lecanterior = bundle.getInt("lecturaanterior");
+		int id = bundle.getInt("id");	// ID simula al numero de cuenta
+		
+		idfinal = id;	// ¿por que no guardas directamente en idfinal?
+		
+		//int lecanterior = bundle.getInt("lecturaanterior");		
 		String calle = bundle.getString("calle").toString();
 		int altura = bundle.getInt("altura");
 		
-		tv1.setText(nombre);
-		tv2.setText(calle +" "+altura);
+		tv_nombre.setText(nombre);
+		tv_calle_altura.setText(calle +" "+altura);
 		//tv4.setText("Lectura anterior: "+lecanterior);
 		
 	}
@@ -57,8 +61,8 @@ public class IngresoConsumo extends Activity {
 	public void guardar(View view){
 		
 		BaseDatos base = new BaseDatos(this,"Prueba",null,1);
-		int lectura = Integer.parseInt(et1.getText().toString());
-		String estado = spi.getSelectedItem().toString();
+		int lectura = Integer.parseInt(et_lecActual.getText().toString());
+		String estado = spinner_estado.getSelectedItem().toString();
 		base.ActualizarLectura(idfinal, estado, lectura);
 		
 		

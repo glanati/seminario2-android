@@ -76,12 +76,9 @@ public class BaseDatos extends SQLiteOpenHelper {
 		  	valores.put("lecactual", lectura);
 	        db.update("INDIVIDUOS", valores, "_id="+id, null);
 	        db.close();   
-	        
-	    
+	          
 		  }
-	    
-	   
-	    
+	    	    
 	  /*  private static void copiarBaseDatos() {
 	        
 	    	String ruta = "/data/data/com.example.sqlite/databases/";
