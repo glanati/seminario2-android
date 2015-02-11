@@ -107,9 +107,7 @@ public class IngresoLecturas extends Activity {
 	        		
 	        		if(lecactual != 0){
 	        		
-	        			View view = new View(this);	
-	        			view = adapter.getView(i, null, lv_domicilios);
-	        			view.setBackgroundColor(Color.rgb(26, 192, 48));
+	        		
 	        			
 	        		}
 	        		
