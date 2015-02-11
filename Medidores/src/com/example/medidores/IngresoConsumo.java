@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
@@ -22,6 +23,8 @@ public class IngresoConsumo extends Activity {
 	private Spinner spinner_estado;
 	private EditText et_lecActual;
 	private int idfinal;
+	private int rutamedidor;
+	private String orden;
 	String[] arrayEstados = new String[]{"OK","Medidor Roto","Tapado","Ilegible","Sin medidor"};
 	
 	@Override
@@ -42,6 +45,8 @@ public class IngresoConsumo extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		String nombre = bundle.getString("nombre").toString();
 		int id = bundle.getInt("id");	// ID simula al numero de cuenta
+		rutamedidor = bundle.getInt("rutamedidor");
+		orden = bundle.getString("orden");
 		
 		idfinal = id;	// ¿por que no guardas directamente en idfinal?
 		
@@ -62,6 +67,9 @@ public class IngresoConsumo extends Activity {
 		return true;
 	}
 	
+	
+	// METODO DEL BOTON
+	
 	public void guardar(View view){
 		
 		final BaseDatos base = new BaseDatos(this,"Prueba",null,1);
@@ -73,6 +81,7 @@ public class IngresoConsumo extends Activity {
 		fila.moveToFirst();
 		final int lecanterior = fila.getInt(6);
 		
+		// VERIFICA SI LA LECTURA INGRESADA ES MENOR A LA LECTURA ANTERIOR
 		if(lectura < lecanterior){
 			
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -87,7 +96,11 @@ public class IngresoConsumo extends Activity {
 				   public void onClick(DialogInterface dialog, int which) {
 					   
 					   base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
-					   finish();
+					   Intent in = new Intent();
+					   in.setClass(getApplicationContext(), IngresoLecturas.class);
+					   in.putExtra("rutamedidor", rutamedidor);
+					   in.putExtra("orden", orden);
+					   startActivity(in);
 				     
 				   }
 				 });
