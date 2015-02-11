@@ -2,6 +2,10 @@ package com.example.medidores;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -60,13 +64,54 @@ public class IngresoConsumo extends Activity {
 	
 	public void guardar(View view){
 		
-		BaseDatos base = new BaseDatos(this,"Prueba",null,1);
-		int lectura = Integer.parseInt(et_lecActual.getText().toString());
-		String estado = spinner_estado.getSelectedItem().toString();
-		base.ActualizarLectura(idfinal, estado, lectura);
+		final BaseDatos base = new BaseDatos(this,"Prueba",null,1);
+		SQLiteDatabase db = base.getWritableDatabase();
 		
+		final int lectura = Integer.parseInt(et_lecActual.getText().toString());
+		final String estado = spinner_estado.getSelectedItem().toString();
+		Cursor fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where _id="+idfinal,null);
+		fila.moveToFirst();
+		final int lecanterior = fila.getInt(6);
 		
+		if(lectura < lecanterior){
+			
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setMessage("La lectura ingresada es menor que la anterior, desea ingresarla de todos modos?");
+			dialog.setTitle("Advertencia");
+			dialog.setCancelable(false);
+			
+			
+			dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+				  
+				   @Override
+				   public void onClick(DialogInterface dialog, int which) {
+					   
+					   base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
+					   finish();
+				     
+				   }
+				 });
+			
+			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				 
+				   @Override
+				   public void onClick(DialogInterface dialog, int which) {
+				      
+					   IngresoConsumo.this.finish();
+					   
+				   }
+				});
+			
+			dialog.create();
+			dialog.show();
+			
+		}else{
+			
+			base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
+			finish();
+			
+		}
 		
-	}
+		}
 
 }

@@ -8,14 +8,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class BaseDatos extends SQLiteOpenHelper {
 	
@@ -66,44 +70,35 @@ public class BaseDatos extends SQLiteOpenHelper {
 	        }
 	    }
 	    
-	  public void ActualizarLectura(int id,String descripcion,int lectura){
+	  public void ActualizarLectura(final int id,final String descripcion,final int lectura,final int lecanterior){
 		  
-		  SQLiteDatabase db = getWritableDatabase();
+		  final SQLiteDatabase db = getWritableDatabase();
+		  int valida = 0;
+		  final ContentValues valores = new ContentValues();
 		  
-		  	
-		  	ContentValues valores = new ContentValues();
+		  try{	
+			  
+			
+			int consumo = lectura - lecanterior;
+			valores.put("consumo", consumo);
 		  	valores.put("estadomedidor", descripcion);
 		  	valores.put("lecactual", lectura);
 	        db.update("INDIVIDUOS", valores, "_id="+id, null);
-	        db.close();   
-	          
+	        db.close();  
+		  
+		  }catch(Exception e){
+			  Toast.makeText(myContext,"Error en la carga de la lectura..",Toast.LENGTH_SHORT).show();
+			  valida = 1;
+			  e.printStackTrace();
+		  }
+		  
+		  if(valida == 0){
+			  
+			  Toast.makeText(myContext,"Lectura cargada con exito!!",Toast.LENGTH_LONG).show();
+			  
+		  }
+		  
 		  }
 	    	    
-	  /*  private static void copiarBaseDatos() {
-	        
-	    	String ruta = "/data/data/com.example.sqlite/databases/";
-	        String archivo = "BaseDatosUltima.db";
-	        File archivoDB = new File(ruta + archivo);
-	        if (!archivoDB.exists()) {
-	        try {
-	            InputStream IS = myContext.getApplicationContext().getAssets().open(archivo);
-	            OutputStream OS = new FileOutputStream(archivoDB);
-	            byte[] buffer = new byte[1024];
-	            int length = 0;
-	            while ((length = IS.read(buffer))>0){
-	                OS.write(buffer, 0, length);
-	            }
-	            OS.flush();
-	            OS.close();
-	            IS.close();
-	        } catch (FileNotFoundException e) {
-	            Log.e("ERROR", "Archivo no encontrado, " + e.toString());
-	        } catch (IOException e) {
-	            Log.e("ERROR", "Error al copiar la Base de Datos, " + e.toString());
-	        }
-	    }
-	
-
-}*/
 
 }
