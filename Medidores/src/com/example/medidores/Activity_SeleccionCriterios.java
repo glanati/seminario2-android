@@ -14,7 +14,7 @@ import android.widget.Spinner;
 public class Activity_SeleccionCriterios extends Activity {
 
 	private EditText et_ruta_med;
-	private Button button_lecturas;
+	private Button button_ingreso_lecturas;
 	private RadioButton radio_asc;
 	private RadioButton radio_desc;
 	private Spinner selec_ruta;
@@ -28,7 +28,7 @@ public class Activity_SeleccionCriterios extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.seleccion_criterios);
 		//et_ruta_med = (EditText) findViewById(R.id.et_ruta_med);
-		button_lecturas = (Button) findViewById(R.id.button_lecturas);
+		button_ingreso_lecturas = (Button) findViewById(R.id.button_ingreso_lecturas);
 		radio_asc = (RadioButton)findViewById(R.id.radio_asc);
 		radio_desc = (RadioButton)findViewById(R.id.radio_desc);
 		selec_ruta = (Spinner)findViewById(R.id.spinner1);
