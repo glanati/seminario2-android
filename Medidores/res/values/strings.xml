@@ -11,7 +11,7 @@
     <string name="exportacion">Exportación</string>
     <string name="imagen_tausoft">Tausoft</string>
     <string name="criterios_seleccion">Criterios de selección</string>
-    <string name="ingrese_ruta_med">Ingrese ruta de medición</string>
+    <string name="ingrese_ruta_med">Seleccione ruta medición</string>
     <string name="cargar_registros">Cargar registros</string>
     <string name="ascendente">Ascendente</string>
     <string name="descendente">Descendente</string>

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 
 public class Activity_SeleccionCriterios extends Activity {
 
@@ -15,18 +17,25 @@ public class Activity_SeleccionCriterios extends Activity {
 	private Button button_lecturas;
 	private RadioButton radio_asc;
 	private RadioButton radio_desc;
+	private Spinner selec_ruta;
+	private ArrayAdapter<String> adapter;
 	
+	private String[] arrayRutas = new String[]{"200","202","204","206"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.seleccion_criterios);
-		et_ruta_med = (EditText) findViewById(R.id.et_ruta_med);
+		//et_ruta_med = (EditText) findViewById(R.id.et_ruta_med);
 		button_lecturas = (Button) findViewById(R.id.button_lecturas);
 		radio_asc = (RadioButton)findViewById(R.id.radio_asc);
 		radio_desc = (RadioButton)findViewById(R.id.radio_desc);
-		
+		selec_ruta = (Spinner)findViewById(R.id.spinner1);
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,arrayRutas);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+		selec_ruta.setAdapter(adapter);
+		radio_asc.setChecked(true);
 	}
 
 	 public void ingresolecturas(View view) {
@@ -35,7 +44,7 @@ public class Activity_SeleccionCriterios extends Activity {
 		 	Intent i = new Intent(this, IngresoLecturas.class);
 		 	
 		 	// mediante el intent pasamos la información
-	        i.putExtra("rutamedidor", et_ruta_med.getText().toString());
+	        i.putExtra("rutamedidor", selec_ruta.getSelectedItem().toString());
 	        String sele = "";
 	       
 	        if(radio_asc.isChecked()){
