@@ -232,7 +232,35 @@ public class IngresoLecturas extends Activity {
         		
 			}
         	
-        	db.close();    
+        	db.close();  
+        	
+        	// acción que se realiza cuando se clickea en algun item del ListView
+        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
+                 @Override
+                 public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+                     
+                	//Toast.makeText(getApplicationContext(),array.get(position).getNombre(),Toast.LENGTH_SHORT).show();
+                	 Intent in = new Intent();
+                	 
+                	// mediante el intent pasamos las información al activity_ingreso_consumo
+                	 in.putExtra("id",array.get(position).getId());		// ID simula al numero de cuenta
+                	 in.putExtra("calle",array.get(position).getCalle());
+                	 in.putExtra("altura",array.get(position).getAltura());
+                	 in.putExtra("nombre",array.get(position).getNombre());
+                	 in.putExtra("lecturaanterior",array.get(position).getLecanterior());
+                	 in.putExtra("orden", orden);
+                	 in.putExtra("rutamedidor", rutamedidor);
+                	 
+                	 
+                     in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
+                     view.setBackgroundColor(Color.rgb(26, 192, 48));
+                     startActivity(in);
+                	   
+                 }
+             });
+        	
+        	
+        	  
 		
 		
 	}
