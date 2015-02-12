@@ -43,7 +43,12 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="number"
-        android:textColor="#FFFFFF" >
+        android:hint="@string/consumo"
+        android:textColor="#FFFFFF" >		<!-- 
+        										 android:drawableLeft="@drawable/ic_usuario"        imagen al lado del texto de ayuda
+        										 android:hint="@string/consumo"      				indica texto de ayuda   
+        										 android:textColorHint="#CFCFCF" 					indica su color 
+        										-->
 
         <requestFocus />
     </EditText>
@@ -59,7 +64,7 @@
         android:background="#FFFFFF" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_guardar_lectura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/spinner_estado"

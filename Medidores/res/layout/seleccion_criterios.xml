@@ -37,7 +37,7 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/button_lecturas"
+            android:id="@+id/button_ingreso_lecturas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/button_registros"

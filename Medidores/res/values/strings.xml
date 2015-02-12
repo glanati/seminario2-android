@@ -16,5 +16,6 @@
     <string name="ascendente">Ascendente</string>
     <string name="descendente">Descendente</string>
     <string name="guardar_lectura">Guardar lectura</string>
+    <string name="consumo">Consumo</string>
 
 </resources>
