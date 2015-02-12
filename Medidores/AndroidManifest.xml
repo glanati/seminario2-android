@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.medidores.Activity_SeleccionCriterios" >
+        <activity android:name="com.example.medidores.Activity_SeleccionCriterios" android:label="@string/title_activity_seleccion_criterios">
         </activity>
         <activity
             android:name="com.example.medidores.IngresoLecturas"
@@ -37,6 +37,7 @@
             <!--- android:theme="@android:style/Theme.Dialog" -->
           
         </activity>
+        <activity android:name="com.example.medidores.ImportActivity" android:label="@string/title_activity_import"></activity>
     </application>
 
 </manifest>

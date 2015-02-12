@@ -12,10 +12,13 @@
     <string name="imagen_tausoft">Tausoft</string>
     <string name="criterios_seleccion">Criterios de selección</string>
     <string name="ingrese_ruta_med">Seleccione ruta medición</string>
-    <string name="cargar_registros">Cargar registros</string>
+    <string name="importar_registros">Importar registros</string>
     <string name="ascendente">Ascendente</string>
     <string name="descendente">Descendente</string>
     <string name="guardar_lectura">Guardar lectura</string>
     <string name="consumo">Consumo</string>
+    <string name="title_activity_import">Importación</string>
+    <string name="tv_import">Al presionar el botón &quot;Importar registros&quot; se simulará la carga de registros para que la aplicación pueda probarse.</string>
+    <string name="title_activity_seleccion_criterios">Selección de criterios</string>
 
 </resources>

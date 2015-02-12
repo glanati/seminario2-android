@@ -60,7 +60,7 @@ public class Activity_SeleccionCriterios extends Activity {
 	        i.putExtra("orden", sele);
 	        startActivity(i);
 	    }
-	 
+/*	 
 	 public void cargaregistros(View view) {
 		 	
 		 	BaseDatos base = new BaseDatos(this,"Prueba",null,1);
@@ -93,6 +93,6 @@ public class Activity_SeleccionCriterios extends Activity {
 			base.insertarCONTACTO(25, "Delgado Pablo", "Cabral", 474, 206, 0, 589, 0,"OK");
 			base.insertarCONTACTO(26, "Pirinte Lucia", "Cabral", 1254, 206, 0, 589, 0,"OK");
 	    }
-	
+*/	
 	
 }

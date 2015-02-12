@@ -23,9 +23,14 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	 public void lanzar(View view) {
+	 public void lanzarSeleccionCriterios(View view) {
 	        Intent i = new Intent(this, Activity_SeleccionCriterios.class );
 	        startActivity(i);
-	  } 
+	 }
+	 
+	 public void lanzarImportacion(View view) {
+	        Intent i = new Intent(this, ImportActivity.class );
+	        startActivity(i);
+	 } 
 	
 }

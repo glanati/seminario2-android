@@ -38,7 +38,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="14dp"
             android:drawableLeft="@drawable/medidor"
-            android:onClick="lanzar"
+            android:onClick="lanzarSeleccionCriterios"
             android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
 
@@ -50,6 +50,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/button1"
             android:drawableLeft="@drawable/importacion"
+            android:onClick="lanzarImportacion"
             android:text="@string/importacion"
             android:textColor="#FFFFFF" />
 
