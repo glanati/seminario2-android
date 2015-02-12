@@ -96,13 +96,9 @@ public class IngresoConsumo extends Activity {
 				   public void onClick(DialogInterface dialog, int which) {
 					   
 					   base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
-					   Intent in = new Intent();
-					   in.setClass(getApplicationContext(), IngresoLecturas.class);
-					   in.putExtra("rutamedidor", rutamedidor);
-					   in.putExtra("orden", orden);
-					   startActivity(in);
-				     
-				   }
+					   finish();
+					  										
+					    }
 				 });
 			
 			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

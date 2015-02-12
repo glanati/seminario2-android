@@ -107,7 +107,7 @@ public class IngresoLecturas extends Activity {
 	        		
 	        		if(lecactual != 0){
 	        		
-	        		
+	        			//TERMINAR
 	        			
 	        		}
 	        		
