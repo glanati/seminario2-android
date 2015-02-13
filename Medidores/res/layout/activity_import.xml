@@ -21,12 +21,23 @@
         android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_import"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/icon" />
+
     <Button
         android:id="@+id/button_registros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/tv_import"
+        android:layout_alignRight="@+id/tv_import"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="44dp"
         android:background="#088A08"
         android:onClick="cargaregistros"
         android:text="@string/importar_registros"
