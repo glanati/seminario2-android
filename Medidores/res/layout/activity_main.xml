@@ -30,7 +30,7 @@
         android:layout_alignParentTop="true" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_export"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/button1"
+            android:layout_below="@+id/button_export"
             android:drawableLeft="@drawable/importacion"
             android:onClick="lanzarImportacion"
             android:text="@string/importacion"
@@ -62,6 +62,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/button2"
             android:drawableLeft="@drawable/exportacion"
+            android:onClick="lanzarExportacion"
             android:text="@string/exportacion"
             android:textColor="#FFFFFF" />
 

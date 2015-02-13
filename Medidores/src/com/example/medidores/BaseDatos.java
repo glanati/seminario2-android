@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -100,5 +103,72 @@ public class BaseDatos extends SQLiteOpenHelper {
 		  
 		  }
 	    	    
+	  public void exportTheDB() throws IOException{
+		 
+		  final SQLiteDatabase sampleDB = getWritableDatabase();
+		  File myFile;  
+	      Calendar cal = Calendar.getInstance();
+	      SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+	      String TimeStampDB = sdf.format(cal.getTime()); 
+
+	      try {
+
+	          myFile = new File("data/data"+"/Export_"+TimeStampDB+".csv");
+	          myFile.createNewFile();
+	          FileOutputStream fOut = new FileOutputStream(myFile);
+	          OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+	          myOutWriter.append("_id;nombre;calle;altura;rutamedidor;lecactual;lecanterior;consumo;estadomedidor");
+	          myOutWriter.append("\n");
+	          
+
+	          Cursor c = sampleDB.rawQuery("SELECT * FROM  INDIVIDUOS ", null);
+
+	          if (c != null) {
+	              if (c.moveToFirst()) {
+	                  do {
+
+
+	                      
+	                      int id = c.getInt(c.getColumnIndex("_id"));
+	                      String nombre = c.getString(c.getColumnIndex("nombre"));
+	                      String calle = c.getString(c.getColumnIndex("calle"));
+	                      int altura = c.getInt(c.getColumnIndex("altura"));
+	                      int rutamedidor = c.getInt(c.getColumnIndex("rutamedidor"));
+	                      int lecactual = c.getInt(c.getColumnIndex("lecactual"));
+	                      int lecanterior = c.getInt(c.getColumnIndex("lecanterior"));
+	                      int consumo = c.getInt(c.getColumnIndex("consumo"));
+	                      String estadomedidor = c.getString(c.getColumnIndex("estadomedidor"));
+
+	                      myOutWriter.append(id+";"+nombre+";"+calle+";"+altura+";"+rutamedidor+";"+lecactual+";"+lecanterior+";"+consumo+";"+estadomedidor);
+	                      myOutWriter.append("\n");
+	                  }
+
+	                  while (c.moveToNext());
+	              }
+
+	              c.close();
+	              myOutWriter.close();
+	              fOut.close();
+
+	          }
+	      } catch (SQLiteException se) 
+	      {
+	          Log.e(getClass().getSimpleName(),"No se puede abrir la base de datos");
+	      }
+
+	      finally {
+
+	          sampleDB.close();
+	          Toast.makeText(myContext, "Operacion realizada!", Toast.LENGTH_SHORT).show();
+
+	      }
+
+
+
+
+
+
+	  }
+	  
 
 }

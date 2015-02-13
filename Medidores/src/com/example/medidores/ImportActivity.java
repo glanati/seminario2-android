@@ -3,6 +3,7 @@ package com.example.medidores;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class ImportActivity extends Activity {
 
@@ -43,6 +44,8 @@ public class ImportActivity extends Activity {
 		base.insertarCONTACTO(24, "Mateo Luciano", "Cabral", 120, 206, 0, 589, 0,"OK");
 		base.insertarCONTACTO(25, "Delgado Pablo", "Cabral", 474, 206, 0, 589, 0,"OK");
 		base.insertarCONTACTO(26, "Pirinte Lucia", "Cabral", 1254, 206, 0, 589, 0,"OK");
+		
+		Toast.makeText(getApplicationContext(), "Carga finalizada!", Toast.LENGTH_SHORT).show();
     }
 
 }

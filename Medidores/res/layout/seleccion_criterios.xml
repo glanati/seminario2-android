@@ -78,7 +78,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="64dp"
-            android:background="#0101DF"
+             android:background="#088A08"
             android:onClick="ingresolecturas"
             android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
