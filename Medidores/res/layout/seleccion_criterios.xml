@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:background="#000000"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activity_SeleccionCriterios" >
-    
-<!--  
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
         <TextView
             android:id="@+id/tv_crit_selecc"
             android:layout_width="wrap_content"
@@ -21,28 +25,15 @@
             android:text="@string/criterios_seleccion"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
--->
+
         <TextView
             android:id="@+id/tv_ruta_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-
+            android:layout_below="@+id/tv_crit_selecc"
             android:layout_marginTop="30dp"
             android:text="@string/ingrese_ruta_med"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/button_ingreso_lecturas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/radioGroup_criterio"
-            android:layout_marginBottom="43dp"
-            android:background="#0101DF"
-            android:onClick="ingresolecturas"
-            android:text="@string/ingreso_lecturas"
             android:textColor="#FFFFFF" />
 
         <RadioGroup
@@ -50,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true" >
 
             <RadioButton
@@ -78,6 +70,19 @@
             android:layout_below="@+id/tv_ruta_med"
             android:background="#FFFFFF" />
 
+        <Button
+            android:id="@+id/button_ingreso_lecturas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="64dp"
+            android:background="#0101DF"
+            android:onClick="ingresolecturas"
+            android:text="@string/ingreso_lecturas"
+            android:textColor="#FFFFFF" />
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
