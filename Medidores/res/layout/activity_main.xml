@@ -9,8 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-   
-
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
@@ -30,7 +28,7 @@
         android:layout_alignParentTop="true" >
 
         <Button
-            android:id="@+id/button_export"
+            android:id="@+id/button_selecc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,24 +41,24 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_import"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/button_export"
+            android:layout_below="@+id/button_selecc"
             android:drawableLeft="@drawable/importacion"
             android:onClick="lanzarImportacion"
             android:text="@string/importacion"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_export"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/button2"
+            android:layout_below="@+id/button_import"
             android:drawableLeft="@drawable/exportacion"
             android:onClick="lanzarExportacion"
             android:text="@string/exportacion"

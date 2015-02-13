@@ -134,8 +134,5 @@ public class Registro {
 		// TODO Auto-generated method stub
 		return  nombre +"\n"+ calle +" "+ altura +"\nLectura anterior: "+ lecanterior+"\nConsumo: "+consumo;
 	}
-	
-	
-	
-	
+		
 }

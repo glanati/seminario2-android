@@ -1,66 +1,49 @@
 package com.example.medidores;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class IngresoLecturas extends Activity {
 
 	private int rutamedidor;
 	private String orden;
-	private BaseDatos db2;
 	private ListView lv_domicilios;
 	private ArrayAdapter<Registro> adapter;		// los adapters son una interfaz entre el modelo de datos y los controles de selección (textview, button, etc)
-	private ArrayAdapter<String> adapter2;
 	private ArrayList<Registro> array;
-	private String[] prueba;
 	int request_code = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-			
+					
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_ingreso_lecturas);
 				
 			lv_domicilios = (ListView) findViewById(R.id.listView_domicilios);
 			
-			// recupero al informacion pasada en el intent
+			// recupero la informacion pasada en el intent
 			Bundle bundle = this.getIntent().getExtras();
 			rutamedidor = Integer.parseInt(bundle.getString("rutamedidor"));
 			orden = bundle.getString("orden");
-			
-			
+					
 			BaseDatos base = new BaseDatos(this,"Prueba",null,1);
 			SQLiteDatabase db = base.getWritableDatabase();
 			
 			// Cursor interface: proporciona acceso de lectura y escritura aleatoria para el result set devuelto por una consulta de base de datos.
 			final Cursor fila;
 			
-			Cursor consulta;
-				// se utiliza ??
 			
 			// ordena los registros segun el criterio seleccionado
 			if(orden.equals("asc")){
@@ -74,24 +57,30 @@ public class IngresoLecturas extends Activity {
 				fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by altura DESC",null);
 				
 			}
-			
-			
+					
 	        fila.moveToFirst();
 	        array = new ArrayList<Registro>();
-	       
-	       
-	        
-	        do{
+	                   
+	        do {
 	        	
-	        	// recupera los registros y los agrega al arrayList
-	        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
-	        	array.add(r);
+	        	try {
+					
+	        		// recupera los registros y los agrega al arrayList
+		        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
+		        	array.add(r);
+	        		
+				} catch (Exception e) {
+					
+					Toast.makeText(getApplicationContext(), "La base de datos esta vacía, debe importar registros primero.", Toast.LENGTH_SHORT).show();
+					finish();
+					
+					Intent i = new Intent(this, ImportActivity.class );
+					startActivity(i);
+					
+				}
 	        	
-	        	
-	        	
-	        	//Toast.makeText(getApplicationContext(),fila.getString(1),Toast.LENGTH_SHORT).show();
-	       
-	        }while(fila.moveToNext());
+	        	       
+	        } while(fila.moveToNext());
 	        	
 	        	// creamos el Arrayadapter para listar los registros cargados
 	        	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
@@ -104,18 +93,15 @@ public class IngresoLecturas extends Activity {
 	        		Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
 	        		int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
 	        		
-	        		
 	        		if(lecactual != 0){
 	        		
 	        			//TERMINAR
 	        			
 	        		}
-	        		
-	        		
+	        		       		
 				}
 	        	
-	        	
-	        	
+	           	
 	        	// acción que se realiza cuando se clickea en algun item del ListView
 	        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
 	                 @Override
@@ -141,16 +127,11 @@ public class IngresoLecturas extends Activity {
 	                 }
 	             });
 	        	
-	        	
-	        	
 	        	db.close();    
-	        	
-	        	
+	        	  	
 	        }
 	        	
-	
-	
-	
+
      @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -178,10 +159,7 @@ public class IngresoLecturas extends Activity {
 		
 		// Cursor interface: proporciona acceso de lectura y escritura aleatoria para el result set devuelto por una consulta de base de datos.
 		final Cursor fila;
-		
-		Cursor consulta;
-		View view = new View(this);		// se utiliza ??
-		
+			
 		// ordena los registros segun el criterio seleccionado
 		if(orden.equals("asc")){
 		
@@ -199,17 +177,12 @@ public class IngresoLecturas extends Activity {
         fila.moveToFirst();
         array = new ArrayList<Registro>();
        
-       
-        
-        do{
+
+        do {
         	
         	// recupera los registros y los agrega al arrayList
         	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
         	array.add(r);
-        	
-        	
-        	
-        	//Toast.makeText(getApplicationContext(),fila.getString(1),Toast.LENGTH_SHORT).show();
        
         }while(fila.moveToNext());
         	
@@ -225,9 +198,7 @@ public class IngresoLecturas extends Activity {
         		int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
         		
         		if(lecactual != 0){
-        			
-        			
-        			
+        				
         		}
         		
 			}
@@ -258,11 +229,7 @@ public class IngresoLecturas extends Activity {
                 	   
                  }
              });
-        	
-        	
-        	  
-		
-		
+
 	}
 
 
@@ -273,8 +240,7 @@ public class IngresoLecturas extends Activity {
          // TODO Auto-generated method stub
          if ((requestCode == request_code) && (resultCode == RESULT_OK)){
           
-        	
-         
+
          }
      }
 	
@@ -299,4 +265,5 @@ public class IngresoLecturas extends Activity {
         
 		}*/
 	}
+	
 }

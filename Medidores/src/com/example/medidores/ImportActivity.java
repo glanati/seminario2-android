@@ -1,6 +1,7 @@
 package com.example.medidores;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -45,7 +46,10 @@ public class ImportActivity extends Activity {
 		base.insertarCONTACTO(25, "Delgado Pablo", "Cabral", 474, 206, 0, 589, 0,"OK");
 		base.insertarCONTACTO(26, "Pirinte Lucia", "Cabral", 1254, 206, 0, 589, 0,"OK");
 		
-		Toast.makeText(getApplicationContext(), "Carga finalizada!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "¡Importación exitosa!", Toast.LENGTH_SHORT).show();
+		
+		Intent i = new Intent(this, Activity_SeleccionCriterios.class );
+	    startActivity(i);
     }
 
 }

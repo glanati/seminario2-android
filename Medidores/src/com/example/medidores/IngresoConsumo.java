@@ -1,16 +1,14 @@
 package com.example.medidores;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,14 +20,16 @@ public class IngresoConsumo extends Activity {
 
 	private TextView tv_nombre;
 	private TextView tv_calle_altura;
-//	private TextView tv4;
-	private ArrayAdapter<String> adapter;
 	private EditText et_lecActual;
 	private Spinner spinner_estado;
 	private Button button_guardar_lectura;
+	
+	private ArrayAdapter<String> adapter;
+	
 	private int idfinal;
 	private int rutamedidor;
 	private String orden;
+	
 	String[] arrayEstados = new String[]{"OK","Medidor Roto","Tapado","Ilegible","Sin medidor"};
 	
 	@Override
@@ -54,15 +54,13 @@ public class IngresoConsumo extends Activity {
 		rutamedidor = bundle.getInt("rutamedidor");
 		orden = bundle.getString("orden");
 		
-		idfinal = id;	// ¿por que no guardas directamente en idfinal?
-		
-		//int lecanterior = bundle.getInt("lecturaanterior");		
+		idfinal = id;
+				
 		String calle = bundle.getString("calle").toString();
 		int altura = bundle.getInt("altura");
 		
 		tv_nombre.setText(nombre);
 		tv_calle_altura.setText(calle +" "+altura);
-		//tv4.setText("Lectura anterior: "+lecanterior);
 		
 	}
 
@@ -72,10 +70,8 @@ public class IngresoConsumo extends Activity {
 		getMenuInflater().inflate(R.menu.ingreso_consumo, menu);
 		return true;
 	}
-	
-	
-	// METODO DEL BOTON
-	
+		
+	// Metodo del boton "Guardar lectura"
 	public void guardar(View view){
 		
 			final BaseDatos base = new BaseDatos(this,"Prueba",null,1);
@@ -97,11 +93,9 @@ public class IngresoConsumo extends Activity {
 				Cursor fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where _id="+idfinal,null);
 				fila.moveToFirst();
 				final int lecanterior = fila.getInt(6);
-			
 
-			
-				// VERIFICA SI LA LECTURA INGRESADA ES MENOR A LA LECTURA ANTERIOR
-				if(lectura < lecanterior){
+				// Verifica si la lectura ingresada es menor a la lectura anterior
+				if (lectura < lecanterior){
 				
 					AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 					dialog.setMessage("La lectura ingresada es menor que la anterior, desea ingresarla de todos modos?");
@@ -113,14 +107,14 @@ public class IngresoConsumo extends Activity {
 					  
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-						   
+							
 							base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
 							db.close();
 							finish();
 							
-					     
 						}
-					 	});
+						
+					 });
 				
 					dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					 
@@ -130,12 +124,13 @@ public class IngresoConsumo extends Activity {
 							IngresoConsumo.this.finish();
 						   
 						}
-						});
+						
+					});
 				
 					dialog.create();
 					dialog.show();
 				
-				}else{
+				} else {
 				
 					base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
 					db.close();
@@ -144,7 +139,6 @@ public class IngresoConsumo extends Activity {
 				}
 				
 			}
-
 			
 	}
 

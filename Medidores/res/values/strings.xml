@@ -18,9 +18,11 @@
     <string name="guardar_lectura">Guardar lectura</string>
     <string name="consumo">Consumo</string>
     <string name="title_activity_import">Importación</string>
-    <string name="tv_import">Al presionar el botón &quot;Importar registros&quot; se simulará la carga de registros para que la aplicación pueda probarse.</string>
+    <string name="tv_import">Simulación de carga de registros para que la aplicación pueda probarse.</string>
     <string name="title_activity_seleccion_criterios">Selección de criterios</string>
-    <string name="title_activity_export_acvtivity">ExportAcvtivity</string>
-    <string name="Seccion_export">En esta sección se EXPORTAN los registros de la base de datos.</string>
+    <string name="title_activity_export_acvtivity">Exportación</string>
+    <string name="Seccion_export">Los registros se exportarán en el formato CSV (proximamente).</string>
+    <string name="exportar_registros">Exportar registros</string>
+    <string name="imagen_android">Android</string>
 
 </resources>

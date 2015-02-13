@@ -28,7 +28,8 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:src="@drawable/icon" />
+        android:src="@drawable/icon"
+        android:contentDescription="@string/imagen_android" />
 
     <Button
         android:id="@+id/button_export"
@@ -40,7 +41,7 @@
         android:layout_marginTop="56dp"
         android:background="#088A08"
         android:onClick="exportaBase"
-        android:text="Exportar base de datos"
+        android:text="@string/exportar_registros"
         android:textColor="#FFFFFF" />
 
 </RelativeLayout>

@@ -1,22 +1,15 @@
 package com.example.medidores;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
@@ -73,15 +66,14 @@ public class BaseDatos extends SQLiteOpenHelper {
 	        }
 	    }
 	    
-	  public void ActualizarLectura(final int id,final String descripcion,final int lectura,final int lecanterior){
+	  public void ActualizarLectura(final int id,final String descripcion,final int lectura,final int lecanterior) {
 		  
 		  final SQLiteDatabase db = getWritableDatabase();
 		  int valida = 0;
 		  final ContentValues valores = new ContentValues();
 		  
-		  try{	
-			  
-			
+		  try {	
+			  	
 			int consumo = lectura - lecanterior;
 			valores.put("consumo", consumo);
 		  	valores.put("estadomedidor", descripcion);
@@ -89,21 +81,21 @@ public class BaseDatos extends SQLiteOpenHelper {
 	        db.update("INDIVIDUOS", valores, "_id="+id, null);
 	        db.close();  
 		  
-		  }catch(Exception e){
-			  Toast.makeText(myContext,"Error en la carga de la lectura..",Toast.LENGTH_SHORT).show();
+		  } catch (Exception e){
+			  Toast.makeText(myContext,"Error en la carga de la lectura",Toast.LENGTH_SHORT).show();
 			  valida = 1;
 			  e.printStackTrace();
 		  }
 		  
 		  if(valida == 0){
 			  
-			  Toast.makeText(myContext,"Lectura cargada con exito!!",Toast.LENGTH_LONG).show();
+			  Toast.makeText(myContext,"¡Lectura cargada con éxito!",Toast.LENGTH_LONG).show();
 			  
 		  }
 		  
-		  }
+	  }
 	    	    
-	  public void exportTheDB() throws IOException{
+	  public void exportTheDB() throws IOException {
 		 
 		  final SQLiteDatabase sampleDB = getWritableDatabase();
 		  File myFile;  
@@ -126,9 +118,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 	          if (c != null) {
 	              if (c.moveToFirst()) {
 	                  do {
-
-
-	                      
+   
 	                      int id = c.getInt(c.getColumnIndex("_id"));
 	                      String nombre = c.getString(c.getColumnIndex("nombre"));
 	                      String calle = c.getString(c.getColumnIndex("calle"));
@@ -151,8 +141,8 @@ public class BaseDatos extends SQLiteOpenHelper {
 	              fOut.close();
 
 	          }
-	      } catch (SQLiteException se) 
-	      {
+	          
+	      } catch (SQLiteException se) {
 	          Log.e(getClass().getSimpleName(),"No se puede abrir la base de datos");
 	      }
 
@@ -163,12 +153,6 @@ public class BaseDatos extends SQLiteOpenHelper {
 
 	      }
 
-
-
-
-
-
 	  }
-	  
 
 }
