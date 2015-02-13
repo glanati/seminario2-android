@@ -95,7 +95,7 @@ public class IngresoLecturas extends Activity {
 	        		
 	        		if(lecactual != 0){
 	        		
-	        			//TERMINAR
+	        			//TERMINAR PARA PINTAR LOS REGISTROS
 	        			
 	        		}
 	        		       		
