@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -154,5 +155,67 @@ public class BaseDatos extends SQLiteOpenHelper {
 	      }
 
 	  }
+	  
+	    public void ExportToCSV() throws IOException {  
+		       
+		    Calendar cal = Calendar.getInstance();
+		    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+		    String TimeStampDB = sdf.format(cal.getTime());
+		      
+	    	String fileName = "/export_"+TimeStampDB+".csv";
+	    			
+	    	final SQLiteDatabase sampleDB = getWritableDatabase();	    		
+		    Cursor c = sampleDB.rawQuery("SELECT * FROM  INDIVIDUOS", null);
+
+		    File sdCardDir = Environment.getExternalStorageDirectory();  
+            File saveFile = new File(sdCardDir, fileName);  
+            
+            try{
+            	
+            FileOutputStream fOut = new FileOutputStream(saveFile);
+	        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+	        myOutWriter.append("_id;nombre;calle;altura;rutamedidor;lecactual;lecanterior;consumo;estadomedidor");
+	        myOutWriter.append("\n");
+	          
+
+	         if (c != null) {
+	              if (c.moveToFirst()) {
+	                  do {
+ 
+	                      int id = c.getInt(c.getColumnIndex("_id"));
+	                      String nombre = c.getString(c.getColumnIndex("nombre"));
+	                      String calle = c.getString(c.getColumnIndex("calle"));
+	                      int altura = c.getInt(c.getColumnIndex("altura"));
+	                      int rutamedidor = c.getInt(c.getColumnIndex("rutamedidor"));
+	                      int lecactual = c.getInt(c.getColumnIndex("lecactual"));
+	                      int lecanterior = c.getInt(c.getColumnIndex("lecanterior"));
+	                      int consumo = c.getInt(c.getColumnIndex("consumo"));
+	                      String estadomedidor = c.getString(c.getColumnIndex("estadomedidor"));
+
+	                      myOutWriter.append(id+";"+nombre+";"+calle+";"+altura+";"+rutamedidor+";"+lecactual+";"+lecanterior+";"+consumo+";"+estadomedidor);
+	                      myOutWriter.append("\n");
+	                  }
+
+	                  while (c.moveToNext());
+	              }
+
+	              c.close();
+	              myOutWriter.close();
+	              fOut.close();
+
+	          }
+	          
+	      } catch (SQLiteException se) {
+	          Log.e(getClass().getSimpleName(),"No se puede abrir la base de datos");
+	      }
+
+	      finally {
+
+	    	  sampleDB.close();
+	          Toast.makeText(myContext, "Operacion realizada!", Toast.LENGTH_SHORT).show();
+
+	      }
+            
+        }
 
 }
