@@ -2,6 +2,7 @@ package com.example.medidores;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,10 @@ public class Activity_SeleccionCriterios extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.seleccion_criterios);
+		
+		//hace que la pantalla se mantenga en modo Portrait
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
 		selec_ruta = (Spinner)findViewById(R.id.spinner1);
 		radio_asc = (RadioButton)findViewById(R.id.radio_asc);

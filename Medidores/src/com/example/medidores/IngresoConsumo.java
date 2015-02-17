@@ -3,6 +3,7 @@ package com.example.medidores;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class IngresoConsumo extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ingreso_consumo);
+		
+		//hace que la pantalla se mantenga en modo Portrait
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		tv_nombre = (TextView) findViewById(R.id.tv_nombre);
 		tv_calle_altura = (TextView) findViewById(R.id.tv_calle_altura);

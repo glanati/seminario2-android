@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -30,6 +31,9 @@ public class IngresoLecturas extends Activity {
 					
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_ingreso_lecturas);
+			
+			//hace que la pantalla se mantenga en modo Portrait
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				
 			lv_domicilios = (ListView) findViewById(R.id.listView_domicilios);
 			
