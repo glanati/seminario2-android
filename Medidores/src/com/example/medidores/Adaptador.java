@@ -50,7 +50,7 @@ public class Adaptador extends ArrayAdapter<Registro> {
 			
 		if(lecactual != 0){
 				
-			item.setBackgroundColor(Color.rgb(26, 192, 48));	//color verde
+			item.setBackgroundColor(Color.rgb(40, 178, 63));	//color verde
 				
 		}
 				

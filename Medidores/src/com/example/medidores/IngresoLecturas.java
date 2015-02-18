@@ -91,21 +91,7 @@ public class IngresoLecturas extends Activity {
 	        	adapter = new Adaptador(this,array);
 	        	// seteamos los valores del adapter en el ListView
 	        	lv_domicilios.setAdapter(adapter);
-	        	
-	        	for (int i = 0; i < array.size(); i++) {
-				
-	        		Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
-	        		int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
-	        		
-	        		if(lecactual != 0){
-	        		
-	        			//TERMINAR PARA PINTAR LOS REGISTROS
-	        			
-	        		}
-	        		       		
-				}
-	        	
-	           	
+	        	      	
 	        	// acción que se realiza cuando se clickea en algun item del ListView
 	        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
 	                 @Override
@@ -125,7 +111,6 @@ public class IngresoLecturas extends Activity {
 	                	 
 	                	 
 	                     in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
-	                     view.setBackgroundColor(Color.rgb(26, 192, 48));
 	                     startActivity(in);
 	                	   
 	                 }
