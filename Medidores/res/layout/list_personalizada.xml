@@ -31,5 +31,23 @@
         android:textStyle="normal"
         android:textSize="20px"
          android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/LblSubtitulo_3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="normal"
+        android:textSize="20px"
+         android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/LblSubtitulo_4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="normal"
+        android:textSize="20px"
+         android:textColor="#FFFFFF" />
 
 </LinearLayout>
