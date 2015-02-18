@@ -22,7 +22,7 @@ public class IngresoLecturas extends Activity {
 	private int rutamedidor;
 	private String orden;
 	private ListView lv_domicilios;
-	private ArrayAdapter<Registro> adapter;		// los adapters son una interfaz entre el modelo de datos y los controles de selección (textview, button, etc)
+	private Adaptador adapter;		// los adapters son una interfaz entre el modelo de datos y los controles de selección (textview, button, etc)
 	private ArrayList<Registro> array;
 	int request_code = 1;
 
@@ -87,8 +87,8 @@ public class IngresoLecturas extends Activity {
 	        } while(fila.moveToNext());
 	        	
 	        	// creamos el Arrayadapter para listar los registros cargados
-	        	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
-	        	
+	        //	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
+	        	adapter = new Adaptador(this,array);
 	        	// seteamos los valores del adapter en el ListView
 	        	lv_domicilios.setAdapter(adapter);
 	        	
@@ -191,7 +191,9 @@ public class IngresoLecturas extends Activity {
         }while(fila.moveToNext());
         	
         	// creamos el Arrayadapter para listar los registros cargados
-        	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
+        	//adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
+        	adapter = new Adaptador(this,array);
+        	// seteamos los valores del adapter en el ListView
         	
         	// seteamos los valores del adapter en el ListView
         	lv_domicilios.setAdapter(adapter);
