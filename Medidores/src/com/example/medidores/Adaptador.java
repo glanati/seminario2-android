@@ -44,6 +44,9 @@ public class Adaptador extends ArrayAdapter<Registro> {
 		
 		TextView lblSubtitulo4 =(TextView)item.findViewById(R.id.LblSubtitulo_4);	
 		lblSubtitulo4.setText("Consumo: "+datos.get(position).getConsumo());
+		
+		TextView lblSubtitulo5 =(TextView)item.findViewById(R.id.LblSubtitulo_5);	
+		lblSubtitulo5.setText("Estado del medidor: "+datos.get(position).getEstado());
 			
 		if(lecactual != 0){
 				
@@ -57,7 +60,7 @@ public class Adaptador extends ArrayAdapter<Registro> {
 			
 				} else if (estado.equals("Ilegible") || estado.equals("Tapado")){
 				
-						item.setBackgroundColor(Color.rgb(191, 214, 62));	//color amarillo
+						item.setBackgroundColor(Color.rgb(46, 16, 236));	//color azul
 					
 						} else if ((lecactual < lecanterior) && (lecactual != 0)) {
 					
