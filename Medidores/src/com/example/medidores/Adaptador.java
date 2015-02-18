@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class Adaptador extends ArrayAdapter {
 	
 		public View getView(int position, View convertView, ViewGroup parent){
 		
+			int lecactual = datos.get(position).getLecactual();
 			LayoutInflater inflater = context.getLayoutInflater();
 			View item = inflater.inflate(R.layout.list_personalizada, null);
 			TextView lblTitulo = (TextView)item.findViewById(R.id.LblTitulo);
@@ -32,6 +34,13 @@ public class Adaptador extends ArrayAdapter {
 			TextView lblSubtitulo2 =(TextView)item.findViewById(R.id.LblSubtitulo_2);
 			lblSubtitulo.setText(datos.get(position).getCalle() + " " + datos.get(position).getAltura());
 			lblSubtitulo2.setText("Lectura anterior: "+datos.get(position).getLecanterior());
+			
+			if(lecactual != 0){
+				
+				item.setBackgroundColor(Color.rgb(26, 192, 48));
+				
+			}
+			
 			return(item);
 			
 			
