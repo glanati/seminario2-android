@@ -30,9 +30,10 @@ public class IngresoConsumo extends Activity {
 	private int idfinal;
 	private int rutamedidor;
 	private String orden;
+	private int lecanterior;
 	
 	String[] arrayEstados = new String[]{"OK","Medidor Roto","Tapado","Ilegible","Sin medidor"};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +56,8 @@ public class IngresoConsumo extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		String nombre = bundle.getString("nombre").toString();
 		int id = bundle.getInt("id");	// ID simula al numero de cuenta
+			
+		lecanterior = bundle.getInt("lecturaanterior");
 		rutamedidor = bundle.getInt("rutamedidor");
 		orden = bundle.getString("orden");
 		
@@ -83,64 +86,70 @@ public class IngresoConsumo extends Activity {
 			
 			// recupero el valor del editText
 			String lect = et_lecActual.getText().toString();
-			
-			// verifico que no sea un string vacio
-			if (TextUtils.isEmpty(lect)) {
-			     Toast.makeText(this, "Debe ingresar el consumo", 
-			             Toast.LENGTH_SHORT).show();
-			} else {
-				
-				// parseo el valor del editText como int para utilizarlo
-				final int lectura = Integer.parseInt(lect);
-				
-				final String estado = spinner_estado.getSelectedItem().toString();
-				Cursor fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where _id="+idfinal,null);
-				fila.moveToFirst();
-				final int lecanterior = fila.getInt(6);
+					
+			final String estado = spinner_estado.getSelectedItem().toString();
+		
 
-				// Verifica si la lectura ingresada es menor a la lectura anterior
-				if (lectura < lecanterior){
+			if (estado.equals("OK")) {
 				
-					AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-					dialog.setMessage("La lectura ingresada es menor que la anterior, desea ingresarla de todos modos?");
-					dialog.setTitle("Advertencia");
-					dialog.setCancelable(false);
-				
-				
-					dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-					  
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							
-							base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
-							db.close();
-							finish();
-							
-						}
-						
-					 });
-				
-					dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-					      
-							IngresoConsumo.this.finish();
-						   
-						}
-						
-					});
-				
-					dialog.create();
-					dialog.show();
-				
+				// verifico que no sea un string vacio
+				if (TextUtils.isEmpty(lect)) {
+				     Toast.makeText(this, "Debe ingresar el consumo", 
+				             Toast.LENGTH_SHORT).show();
 				} else {
-				
-					base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
-					db.close();
-					finish();
-				
+					
+					// parseo el valor del editText como int para utilizarlo
+					final int lectura = Integer.parseInt(lect);
+					
+					// Verifica si la lectura ingresada es menor a la lectura anterior
+					if (lectura < lecanterior){
+					
+						AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+						dialog.setMessage("La lectura ingresada es menor que la anterior, desea ingresarla de todos modos?");
+						dialog.setTitle("Advertencia");
+						dialog.setCancelable(false);
+						dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+						  
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								
+								base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
+								db.close();
+								finish();
+								
+							}
+							
+						 });
+					
+						dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						 
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+						      
+								IngresoConsumo.this.finish();
+							   
+							}
+							
+						});
+					
+						dialog.create();
+						dialog.show();
+					
+					} else {
+					
+						base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
+						db.close();
+						finish();
+					
+					}
+					
 				}
+				
+			} else {	// Si el estado del medidor no es "OK" permite no ingresar un consumo y la lectura actual se indica igual a la anterior
+				
+				base.ActualizarLectura(idfinal, estado, lecanterior,lecanterior);
+				db.close();
+				finish();
 				
 			}
 			
