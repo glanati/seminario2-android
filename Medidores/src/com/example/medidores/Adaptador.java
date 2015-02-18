@@ -26,6 +26,7 @@ public class Adaptador extends ArrayAdapter {
 		public View getView(int position, View convertView, ViewGroup parent){
 		
 			int lecactual = datos.get(position).getLecactual();
+			String estado = datos.get(position).getEstado();
 			LayoutInflater inflater = context.getLayoutInflater();
 			View item = inflater.inflate(R.layout.list_personalizada, null);
 			TextView lblTitulo = (TextView)item.findViewById(R.id.LblTitulo);
@@ -39,6 +40,15 @@ public class Adaptador extends ArrayAdapter {
 				
 				item.setBackgroundColor(Color.rgb(26, 192, 48));
 				
+			}
+			
+			if(estado.equals("Medidor Roto") || estado.equals("Sin medidor") ){
+				
+				item.setBackgroundColor(Color.rgb(235, 14, 14));
+			
+			}else if(estado.equals("Ilegible") || estado.equals("Tapado")){
+				
+				item.setBackgroundColor(Color.rgb(191, 214, 62));
 			}
 			
 			return(item);

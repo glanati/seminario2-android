@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textStyle="bold"
+        android:textColor="#FFFFFF"
         android:textSize="35px" />
 
     <TextView
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textStyle="normal"
-        android:textSize="30px" />
+        android:textSize="30px"
+         android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/LblSubtitulo_2"
@@ -27,6 +29,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textStyle="normal"
-        android:textSize="20px" />
+        android:textSize="20px"
+         android:textColor="#FFFFFF" />
 
 </LinearLayout>
