@@ -69,7 +69,7 @@ public class IngresoLecturas extends Activity {
 	                	 in.putExtra("calle",array.get(position).getCalle());
 	                	 in.putExtra("altura",array.get(position).getAltura());
 	                	 in.putExtra("nombre",array.get(position).getNombre());
-	                	 in.putExtra("lecturaanterior",array.get(position).getLecanterior());
+	                	 in.putExtra("lecturaanterior",array.get(position).getLecactual()); // lecant
 	                	 in.putExtra("orden", orden);
 	                	 in.putExtra("rutamedidor", rutamedidor);
 	                	 
@@ -141,7 +141,7 @@ public class IngresoLecturas extends Activity {
                 	 in.putExtra("calle",array.get(position).getCalle());
                 	 in.putExtra("altura",array.get(position).getAltura());
                 	 in.putExtra("nombre",array.get(position).getNombre());
-                	 in.putExtra("lecturaanterior",array.get(position).getLecanterior());
+                	 in.putExtra("lecturaanterior",array.get(position).getLecactual()); // lecant
                 	 in.putExtra("orden", orden);
                 	 in.putExtra("rutamedidor", rutamedidor);
                 	 
