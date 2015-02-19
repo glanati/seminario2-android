@@ -203,37 +203,45 @@ public class BaseDatos extends SQLiteOpenHelper {
 			      	
 			      ContentValues valores = new ContentValues();
 			      
-			      valores.put("nrocta",    RowData[0]);     	 	         
-			      valores.put("nrosoc",    RowData[1]);        	 	         
-			      valores.put("calle",      RowData[2]);
-			      valores.put("altura",     RowData[3]);
-			      valores.put("bis",        RowData[4]);        	 	         
-			      valores.put("pisodpto",   RowData[5]);        	 	         
-			      valores.put("rutacorr",   RowData[6]);        	 	         
-			      valores.put("rutamedi",   RowData[7]);        	 	         
-			      valores.put("condiva",    RowData[8]);        	 	         
-			      valores.put("fecalt", 	RowData[9]);			      
-			      valores.put("estado", 	RowData[10]);
-			      valores.put("lecvie", 	RowData[11]);
-			      valores.put("lecant", 	RowData[12]);
-			      valores.put("lecact", 	RowData[13]);
-			      valores.put("lectom", 	RowData[14]);
-			      valores.put("fecvie", 	RowData[15]);
-			      valores.put("fecant", 	RowData[16]);
-			      valores.put("fecact", 	RowData[17]);
-			      valores.put("fectom", 	RowData[18]);
-			      valores.put("saldo", 		RowData[19]);
-			      valores.put("domcta",		RowData[20]);
-			      valores.put("nrocuit",	RowData[21]);
-			      valores.put("perade",		RowData[22]);
-			      valores.put("ccs",		RowData[23]);
-			      valores.put("serv_a_hab",	RowData[24]);
-			      valores.put("serv_c_red",	RowData[25]);
-			      valores.put("serv_c_con",	RowData[26]);
-			      valores.put("estadomed",	"");
+			     // if (RowData[10].equals("2")){
+			     //	System.out.println("cuenta inactiva" + RowData[0]);
+			     // }
+			      
+			      if (RowData[10].equals("1")){ //se importan sólo cuentas activas
+			    	  
+			    	  valores.put("nrocta",    RowData[0]);     	 	         
+			    	  valores.put("nrosoc",    RowData[1]);        	 	         
+			    	  valores.put("calle",      RowData[2]);
+			    	  valores.put("altura",     RowData[3]);
+			    	  valores.put("bis",        RowData[4]);        	 	         
+			    	  valores.put("pisodpto",   RowData[5]);        	 	         
+			    	  valores.put("rutacorr",   RowData[6]);        	 	         
+			    	  valores.put("rutamedi",   RowData[7]);        	 	         
+			    	  valores.put("condiva",    RowData[8]);        	 	         
+			    	  valores.put("fecalt", 	RowData[9]);			      
+			    	  valores.put("estado", 	RowData[10]);
+			    	  valores.put("lecvie", 	RowData[11]);
+			    	  valores.put("lecant", 	RowData[12]);
+			    	  valores.put("lecact", 	RowData[13]);
+			    	  valores.put("lectom", 	RowData[14]);
+			    	  valores.put("fecvie", 	RowData[15]);
+			    	  valores.put("fecant", 	RowData[16]);
+			    	  valores.put("fecact", 	RowData[17]);
+			    	  valores.put("fectom", 	RowData[18]);
+			    	  valores.put("saldo", 		RowData[19]);
+			    	  valores.put("domcta",		RowData[20]);
+			    	  valores.put("nrocuit",	RowData[21]);
+			    	  valores.put("perade",		RowData[22]);
+			    	  valores.put("ccs",		RowData[23]);
+			    	  valores.put("serv_a_hab",	RowData[24]);
+			    	  valores.put("serv_c_red",	RowData[25]);
+			    	  valores.put("serv_c_con",	RowData[26]);
+			    	  valores.put("estadomed",	"");
 
-			      db.insert("CUENTAS", null, valores);		             
+			    	  db.insert("CUENTAS", null, valores);		             
 			     
+			      }
+			      
 			  }
 			
 			 in.close();
