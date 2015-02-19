@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Activity_SeleccionCriterios extends Activity {
 
@@ -48,25 +49,37 @@ public class Activity_SeleccionCriterios extends Activity {
 
 	public void ingresolecturas(View view) {
 	      	
-		 	// creamos el elemento de comunicacion entre el activity_seleccionCriterios y el activity_ingreso_lecturas
-		 	Intent i = new Intent(this, IngresoLecturas.class);
-		 	
-		 	// mediante el intent pasamos la información
-	        i.putExtra("rutamedidor", selec_ruta.getSelectedItem().toString());
-	        String sele = "";
-	       
-	        if(radio_asc.isChecked()){
-	       
-	        	sele = "asc";
-	        
-	        }else if(radio_desc.isChecked()){
-	        	
-	        	sele = "desc";
-	        
-	        }
-	        
-	        i.putExtra("orden", sele);
-	        startActivity(i);
+		 	try {
+				
+		 		// creamos el elemento de comunicacion entre el activity_seleccionCriterios y el activity_ingreso_lecturas
+			 	Intent i = new Intent(this, IngresoLecturas.class);
+			 	
+			 	// mediante el intent pasamos la información
+		        i.putExtra("rutamedidor", selec_ruta.getSelectedItem().toString());
+		        String sele = "";
+		       
+		        if(radio_asc.isChecked()){
+		       
+		        	sele = "asc";
+		        
+		        }else if(radio_desc.isChecked()){
+		        	
+		        	sele = "desc";
+		        
+		        }
+		        
+		        i.putExtra("orden", sele);
+		        startActivity(i);
+		 		
+			} catch (Exception e) {
+				
+				Toast.makeText(getApplicationContext(), "La base de datos esta vacía, debe importar registros primero.", Toast.LENGTH_SHORT).show();
+				finish();
+				
+				Intent i = new Intent(this, ImportActivity.class );
+				startActivity(i);
+				
+			}
 	 }
 	
 }

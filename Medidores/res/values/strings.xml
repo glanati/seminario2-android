@@ -18,11 +18,12 @@
     <string name="guardar_lectura">Guardar lectura</string>
     <string name="consumo">Consumo</string>
     <string name="title_activity_import">Importación</string>
-    <string name="tv_import">Simulación de carga de registros para que la aplicación pueda probarse.</string>
+    <string name="tv_import">Los registros se importarán en el formato CSV.</string>
     <string name="title_activity_seleccion_criterios">Selección de criterios</string>
     <string name="title_activity_export_acvtivity">Exportación</string>
-    <string name="Seccion_export">Los registros se exportarán en el formato CSV (proximamente).</string>
+    <string name="Seccion_export">Los registros se exportarán en el formato CSV.</string>
     <string name="exportar_registros">Exportar registros</string>
     <string name="imagen_android">Android</string>
+    <string name="listview_text">Default</string>
 
 </resources>

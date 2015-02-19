@@ -9,53 +9,53 @@
         android:id="@+id/LblTitulo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="35px" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/LblSubtitulo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="normal"
-        android:textSize="30px"
+        android:textSize="16sp"
          android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/LblSubtitulo_2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="normal"
-        android:textSize="20px"
+        android:textSize="14sp"
          android:textColor="#FFFFFF" />
     
     <TextView
         android:id="@+id/LblSubtitulo_3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="normal"
-        android:textSize="20px"
+        android:textSize="14sp"
          android:textColor="#FFFFFF" />
     
     <TextView
         android:id="@+id/LblSubtitulo_4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="normal"
-        android:textSize="20px"
+        android:textSize="14sp"
          android:textColor="#FFFFFF" />
     <TextView
         android:id="@+id/LblSubtitulo_5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/listview_text"
         android:textStyle="normal"
-        android:textSize="20px"
+        android:textSize="14sp"
          android:textColor="#FFFFFF" />
 
 </LinearLayout>
