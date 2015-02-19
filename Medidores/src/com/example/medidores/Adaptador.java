@@ -43,7 +43,8 @@ public class Adaptador extends ArrayAdapter<Registro> {
 		lblSubtitulo3.setText("Lectura actual: "+datos.get(position).getLecactual());
 		
 		TextView lblSubtitulo4 =(TextView)item.findViewById(R.id.LblSubtitulo_4);	
-		lblSubtitulo4.setText("Consumo: "+datos.get(position).getConsumo());
+		//lblSubtitulo4.setText("Consumo: "+datos.get(position).getConsumo());
+		lblSubtitulo4.setText("Consumo: "+datos.get(position).getLecnueva());
 		
 		TextView lblSubtitulo5 =(TextView)item.findViewById(R.id.LblSubtitulo_5);	
 		lblSubtitulo5.setText("Estado del medidor: "+datos.get(position).getEstado());

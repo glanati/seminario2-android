@@ -2,33 +2,41 @@ package com.example.medidores;
 
 public class Registro {
 
-	private int id;
+	private int nrocuenta;
 	private String nombre;
 	private String calle;
 	private int altura;
 	private int rutamedidor;
-	private int lecactual;
-	private int lecanterior;
-	private int consumo;
+	private int lecanterior;	
+	private int lecactual;	
+	private int lecnueva;	
 	private String estado;
 	private int control;
 	
 	
-	public Registro(int id, String nombre, String calle, int altura,int rutamedidor, int lecactual, int lecanterior, int consumo,String estado) {
+	public Registro(int nrocuenta, String nombre, String calle, int altura,int rutamedidor, int lecanterior, int lecactual, int lecnueva, String estado) {
 		
-		this.id = id;
+		this.nrocuenta = nrocuenta;
 		this.nombre = nombre;
 		this.calle = calle;
 		this.altura = altura;
 		this.rutamedidor = rutamedidor;
-		this.lecactual = lecactual;
 		this.lecanterior = lecanterior;
-		this.consumo = consumo;
+		this.lecactual = lecactual;		
+		this.lecnueva = lecnueva;		
 		this.estado = estado;
 		this.control = 0;
 	}
 
-
+	
+	public int getNrocuenta() {
+		return nrocuenta;
+	}
+	
+	public void setNrocuenta(int nrocuenta) {
+		this.nrocuenta = nrocuenta;
+	}
+	
 	public int getControl() {
 		return control;
 	}
@@ -47,17 +55,6 @@ public class Registro {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 	public String getNombre() {
 		return nombre;
@@ -118,21 +115,18 @@ public class Registro {
 		this.lecanterior = lecanterior;
 	}
 
-
-	public int getConsumo() {
-		return consumo;
+	public int getLecnueva() {
+		return lecnueva;
 	}
-
-
-	public void setConsumo(int consumo) {
-		this.consumo = consumo;
+	
+	public void setLecnueva(int lectom) {
+		this.lecnueva = lectom;
 	}
-
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return  nombre +"\n"+ calle +" "+ altura +"\nLectura anterior: "+ lecanterior+"\nConsumo: "+consumo;
+		return  nombre +"\n"+ calle +" "+ altura +"\nLectura actual: "+ lecactual +"\nLectura anterior: "+ lecanterior; 
 	}
 		
 }

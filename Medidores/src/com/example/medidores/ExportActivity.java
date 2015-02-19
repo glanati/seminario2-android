@@ -28,7 +28,7 @@ public class ExportActivity extends Activity {
 	public void exportaBase(View view) throws IOException{
 		
 		BaseDatos base = new BaseDatos(this,"Prueba",null,1);						
-		base.ExportToCSV();
+		base.ExportCuentasToCSV();
 		 
 	}
 	

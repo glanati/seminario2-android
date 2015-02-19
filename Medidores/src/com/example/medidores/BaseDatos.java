@@ -1,10 +1,13 @@
 package com.example.medidores;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.ContentValues;
@@ -16,6 +19,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class BaseDatos extends SQLiteOpenHelper {
@@ -34,10 +38,8 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    @Override
 	    public void onCreate(SQLiteDatabase db) {
 	    	
-	    	db.execSQL("CREATE TABLE INDIVIDUOS (_id INTEGER PRIMARY KEY, nombre TEXT, calle TEXT, altura INTEGER, rutamedidor INTEGER, lecactual INTEGER, lecanterior INTEGER, consumo INTEGER,estadomedidor TEXT, control INTEGER)");
-	    	//db.execSQL("CREATE TABLE estadomedidor(_id INTEGER PRIMARY KEY,descripcion TEXT)");
-	      // db.execSQL("CREATE TABLE SOCIOS (_id INTEGER PRIMARY KEY,nrosoc INTEGER NOT NULL ,apeynom TEXT ,domicilio TEXT NULL ,codpost INTEGER NULL ,tipodoc TEXT NULL ,nrodoc TEXT NULL ,telefono TEXT NULL ,tipsoc INTEGER NULL ,estado INTEGER NULL)");
-	      // db.execSQL("CREATE TABLE CUENTAS (_id INTEGER PRIMARY KEY,nrocta INTEGER NOT NULL ,nrosoc INTEGER NOT NULL ,calle TEXT NOT NULL ,altura INTEGER NOT NULL ,bis TEXT NULL ,pisodpto TEXT NULL ,rutacorr INTEGER NOT NULL ,rutamedi INTEGER NOT NULL ,condiva TEXT NOT NULL ,fecalt TEXT NULL ,estado INTEGER NULL ,lecvie INTEGER NOT NULL ,lecant INTEGER NOT NULL ,lecact INTEGER NOT NULL ,lectom INTEGER NULL ,fecvie TEXT NULL ,fecant TEXT NULL ,fecact TEXT NULL ,fectom TEXT NULL ,saldo REAL NULL ,domcta TEXT NULL ,nrocuit TEXT NULL ,perade INTEGER NULL ,ccs INTEGER NULL ,serv_a_hab TEXT NULL ,serv_c_red TEXT NULL ,serv_c_con TEXT NULL )");
+	       db.execSQL("CREATE TABLE SOCIOS (nrosoc INTEGER PRIMARY KEY ,apeynom TEXT ,domicilio TEXT NULL ,codpost INTEGER NULL ,tipodoc TEXT NULL ,nrodoc TEXT NULL ,telefono TEXT NULL ,tipsoc INTEGER NULL ,estado INTEGER NULL)");
+	       db.execSQL("CREATE TABLE CUENTAS (nrocta INTEGER NOT NULL, nrosoc INTEGER NOT NULL, calle TEXT NOT NULL ,altura INTEGER NOT NULL ,bis TEXT NULL ,pisodpto TEXT NULL ,rutacorr INTEGER NOT NULL ,rutamedi INTEGER NOT NULL ,condiva TEXT NOT NULL ,fecalt TEXT NULL ,estado INTEGER NULL ,lecvie INTEGER NOT NULL ,lecant INTEGER NOT NULL ,lecact INTEGER NOT NULL ,lectom INTEGER NULL ,fecvie TEXT NULL ,fecant TEXT NULL ,fecact TEXT NULL ,fectom TEXT NULL ,saldo REAL NULL ,domcta TEXT NULL ,nrocuit TEXT NULL ,perade INTEGER NULL ,ccs INTEGER NULL ,serv_a_hab TEXT NULL ,serv_c_red TEXT NULL ,serv_c_con TEXT NULL, estadomed TEXT NULL, PRIMARY KEY (nrocta, nrosoc))");
 	    }
 	 
 	    @Override
@@ -46,28 +48,32 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    	//db.execSQL("DROP TABLE IF EXISTS INDIVIDUOS");
 	    	
 	    }
-	 
-	    public void insertarCONTACTO(int id, String nom, String calle, int altura,int rutamedidor,int leactual,int leanterior,int consumo,String estado) {
+	    
+	    public ArrayList ObtenerRutas() {
 	        
 	    	SQLiteDatabase db = getWritableDatabase();
-	      
-	    	if(db != null){
-	            ContentValues valores = new ContentValues();
-	            valores.put("_id", id);
-	            valores.put("nombre", nom);
-	            valores.put("calle", calle);
-	            valores.put("altura", altura);
-	            valores.put("rutamedidor", rutamedidor);
-	            valores.put("lecactual", leactual);
-	            valores.put("lecanterior", leanterior);
-	            valores.put("consumo", consumo);
-	            valores.put("estadomedidor", estado);
-	            db.insert("INDIVIDUOS", null, valores);
-	            db.close();   
-	        }
-	    }
+	    	
+	    	final Cursor fila;
+	
+	    	fila = db.rawQuery("SELECT DISTINCT rutamedi FROM CUENTAS ORDER BY rutamedi ASC", null);
+	    	
+	    	fila.moveToFirst();
+	        ArrayList rutas = new ArrayList<Integer>();
+	        	        	       
+	        while(fila.moveToNext()){
+	        	
+	        	int rutamedi  = fila.getInt(0);
+        		rutas.add(rutamedi);
+	        		
+			}		
 	    
-	  public void ActualizarLectura(final int id,final String descripcion,final int lectura,final int lecanterior) {
+	    	db.close();	    	
+	    	return rutas;
+	        	 
+	    }
+	 
+	    
+	  public void ActualizarLectura(final int nrocta,final String estadomed, final int lectura, final int lecanterior) {
 		  
 		  final SQLiteDatabase db = getWritableDatabase();
 		  int valida = 0;
@@ -75,11 +81,11 @@ public class BaseDatos extends SQLiteOpenHelper {
 		  
 		  try {	
 			  	
-			int consumo = lectura - lecanterior;
-			valores.put("consumo", consumo);
-		  	valores.put("estadomedidor", descripcion);
-		  	valores.put("lecactual", lectura);
-	        db.update("INDIVIDUOS", valores, "_id="+id, null);
+			//int consumo = lectura - lecanterior;
+			valores.put("lectom", lectura);
+		  	valores.put("estadomed", estadomed);
+		  	//valores.put("lecactual", lectura);
+	        db.update("CUENTAS", valores, "nrocta=" + nrocta, null);
 	        db.close();  
 		  
 		  } catch (Exception e){
@@ -96,76 +102,137 @@ public class BaseDatos extends SQLiteOpenHelper {
 		  
 	  }
 	    	    
-	  public void exportTheDB() throws IOException {
-		 
-		  final SQLiteDatabase sampleDB = getWritableDatabase();
-		  File myFile;  
-	      Calendar cal = Calendar.getInstance();
-	      SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-	      String TimeStampDB = sdf.format(cal.getTime()); 
+	  public void ImportSociostoDB() {
+		  
+		String fileName = "/SOCIOS.csv";
+		  
+		File sdCardDir = Environment.getExternalStorageDirectory();  
+          	  
+ 		File readFile = new File(sdCardDir, fileName);
+          
+          	final SQLiteDatabase db = getWritableDatabase();
+          
+          
+          	BufferedReader in  = null;
+		  
+	        try {
+			
+		     in = new BufferedReader(new FileReader(readFile));
+			
+	             String reader = "";         
+        	  
+			while ((reader = in.readLine()) != null)
+			  
+			  {
+			      String[] RowData = reader.split(";");
+			      	
+			      ContentValues valores = new ContentValues();
+			      
+			      valores.put("nrosoc",    RowData[0]); 	 	         
+			      valores.put("apeynom",    RowData[1]);
+			      valores.put("domicilio",  RowData[2]);
+			      valores.put("codpost",    RowData[3]);
+			      valores.put("tipodoc",   	RowData[4]);
+			      valores.put("nrodoc",     RowData[5]);
+			      valores.put("telefono",   RowData[6]);
+			      valores.put("tipsoc",     RowData[7]);
+			      valores.put("estado", 	RowData[8]);
 
-	      try {
-
-	          myFile = new File("data/data"+"/Export_"+TimeStampDB+".csv");
-	          myFile.createNewFile();
-	          FileOutputStream fOut = new FileOutputStream(myFile);
-	          OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-	          myOutWriter.append("_id;nombre;calle;altura;rutamedidor;lecactual;lecanterior;consumo;estadomedidor");
-	          myOutWriter.append("\n");
-	          
-
-	          Cursor c = sampleDB.rawQuery("SELECT * FROM  INDIVIDUOS ", null);
-
-	          if (c != null) {
-	              if (c.moveToFirst()) {
-	                  do {
-   
-	                      int id = c.getInt(c.getColumnIndex("_id"));
-	                      String nombre = c.getString(c.getColumnIndex("nombre"));
-	                      String calle = c.getString(c.getColumnIndex("calle"));
-	                      int altura = c.getInt(c.getColumnIndex("altura"));
-	                      int rutamedidor = c.getInt(c.getColumnIndex("rutamedidor"));
-	                      int lecactual = c.getInt(c.getColumnIndex("lecactual"));
-	                      int lecanterior = c.getInt(c.getColumnIndex("lecanterior"));
-	                      int consumo = c.getInt(c.getColumnIndex("consumo"));
-	                      String estadomedidor = c.getString(c.getColumnIndex("estadomedidor"));
-
-	                      myOutWriter.append(id+";"+nombre+";"+calle+";"+altura+";"+rutamedidor+";"+lecactual+";"+lecanterior+";"+consumo+";"+estadomedidor);
-	                      myOutWriter.append("\n");
-	                  }
-
-	                  while (c.moveToNext());
-	              }
-
-	              c.close();
-	              myOutWriter.close();
-	              fOut.close();
-
-	          }
-	          
-	      } catch (SQLiteException se) {
-	          Log.e(getClass().getSimpleName(),"No se puede abrir la base de datos");
-	      }
-
-	      finally {
-
-	          sampleDB.close();
-	          Toast.makeText(myContext, "Operacion realizada!", Toast.LENGTH_SHORT).show();
-
-	      }
-
-	  }
+			      db.insert("SOCIOS", null, valores);		             
+			     
+			  }
+			
+			 in.close();
+			 db.close();
+          
+	          } catch (IOException e) {
+	        	  e.printStackTrace();          
+          
+        	  } 	         
+          
+	    }
 	  
-	    public void ExportToCSV() throws IOException {  
+	  
+	  public void ImportCuentastoDB() {
+		  
+		String fileName = "/CUENTAS.csv";
+		  
+		File sdCardDir = Environment.getExternalStorageDirectory();  
+          	  
+ 		File readFile = new File(sdCardDir, fileName);
+          
+          	final SQLiteDatabase db = getWritableDatabase();
+          
+          
+          	BufferedReader in  = null;
+		  
+	        try {
+			
+		     in = new BufferedReader(new FileReader(readFile));
+			
+	             String reader = "";         
+        	  
+			while ((reader = in.readLine()) != null)
+			  
+			  {
+			      String[] RowData = reader.split(";");
+			      	
+			      ContentValues valores = new ContentValues();
+			      
+			      valores.put("nrocta",    RowData[0]);     	 	         
+			      valores.put("nrosoc",    RowData[1]);        	 	         
+			      valores.put("calle",      RowData[2]);
+			      valores.put("altura",     RowData[3]);
+			      valores.put("bis",        RowData[4]);        	 	         
+			      valores.put("pisodpto",   RowData[5]);        	 	         
+			      valores.put("rutacorr",   RowData[6]);        	 	         
+			      valores.put("rutamedi",   RowData[7]);        	 	         
+			      valores.put("condiva",    RowData[8]);        	 	         
+			      valores.put("fecalt", 	RowData[9]);			      
+			      valores.put("estado", 	RowData[10]);
+			      valores.put("lecvie", 	RowData[11]);
+			      valores.put("lecant", 	RowData[12]);
+			      valores.put("lecact", 	RowData[13]);
+			      valores.put("lectom", 	RowData[14]);
+			      valores.put("fecvie", 	RowData[15]);
+			      valores.put("fecant", 	RowData[16]);
+			      valores.put("fecact", 	RowData[17]);
+			      valores.put("fectom", 	RowData[18]);
+			      valores.put("saldo", 		RowData[19]);
+			      valores.put("domcta",		RowData[20]);
+			      valores.put("nrocuit",	RowData[21]);
+			      valores.put("perade",		RowData[22]);
+			      valores.put("ccs",		RowData[23]);
+			      valores.put("serv_a_hab",	RowData[24]);
+			      valores.put("serv_c_red",	RowData[25]);
+			      valores.put("serv_c_con",	RowData[26]);
+			      valores.put("estadomed",	"");
+
+			      db.insert("CUENTAS", null, valores);		             
+			     
+			  }
+			
+			 in.close();
+			 db.close();
+          
+	          } catch (IOException e) {
+	        	  e.printStackTrace();          
+          
+        	  } 	         
+          
+	    }
+
+	    public void ExportCuentasToCSV() throws IOException {  
 		       
 		    Calendar cal = Calendar.getInstance();
 		    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		    String TimeStampDB = sdf.format(cal.getTime());
 		      
-	    	String fileName = "/export_"+TimeStampDB+".csv";
+	    	String fileName = "/CUENTAS_"+TimeStampDB+".csv";
+	    	String split = ";";
 	    			
 	    	final SQLiteDatabase sampleDB = getWritableDatabase();	    		
-		    Cursor c = sampleDB.rawQuery("SELECT * FROM  INDIVIDUOS", null);
+		    Cursor c = sampleDB.rawQuery("SELECT * FROM CUENTAS", null);
 
 		    File sdCardDir = Environment.getExternalStorageDirectory();  
             File saveFile = new File(sdCardDir, fileName);  
@@ -173,26 +240,41 @@ public class BaseDatos extends SQLiteOpenHelper {
             try{
             	
             FileOutputStream fOut = new FileOutputStream(saveFile);
-	        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-	        myOutWriter.append("_id;nombre;calle;altura;rutamedidor;lecactual;lecanterior;consumo;estadomedidor");
-	        myOutWriter.append("\n");
-	          
+	        OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);	          
 
 	         if (c != null) {
 	              if (c.moveToFirst()) {
 	                  do {
  
-	                      int id = c.getInt(c.getColumnIndex("_id"));
-	                      String nombre = c.getString(c.getColumnIndex("nombre"));
+	                      int nrocta = c.getInt(c.getColumnIndex("nrocta"));
+	                      int nrosoc = c.getInt(c.getColumnIndex("nrosoc"));	                      
 	                      String calle = c.getString(c.getColumnIndex("calle"));
 	                      int altura = c.getInt(c.getColumnIndex("altura"));
-	                      int rutamedidor = c.getInt(c.getColumnIndex("rutamedidor"));
-	                      int lecactual = c.getInt(c.getColumnIndex("lecactual"));
-	                      int lecanterior = c.getInt(c.getColumnIndex("lecanterior"));
-	                      int consumo = c.getInt(c.getColumnIndex("consumo"));
-	                      String estadomedidor = c.getString(c.getColumnIndex("estadomedidor"));
+	                      String bis = c.getString(c.getColumnIndex("bis"));
+	                      String pisodpto = c.getString(c.getColumnIndex("pisodpto"));
+	                      int rutacorr = c.getInt(c.getColumnIndex("rutacorr"));
+	                      int rutamedi = c.getInt(c.getColumnIndex("rutamedi"));
+	                      String condiva = c.getString(c.getColumnIndex("condiva"));
+	                      String fecalt = c.getString(c.getColumnIndex("fecalt"));	                      
+	                      int estado = c.getInt(c.getColumnIndex("estado"));
+	                      int lecvie = c.getInt(c.getColumnIndex("lecvie"));
+	                      int lecant = c.getInt(c.getColumnIndex("lecant"));
+	                      int lecact = c.getInt(c.getColumnIndex("lecact"));
+	                      int lectom = c.getInt(c.getColumnIndex("lectom"));	                      
+	                      String fecvie = c.getString(c.getColumnIndex("fecvie"));
+	                      String fecant = c.getString(c.getColumnIndex("fecant"));	                      
+	                      String fecact = c.getString(c.getColumnIndex("fecact"));
+	                      String fectom = c.getString(c.getColumnIndex("fectom"));	                      
+	                      double saldo = c.getDouble(c.getColumnIndex("saldo"));
+	                      String domcta = c.getString(c.getColumnIndex("domcta"));
+	                      String nrocuit = c.getString(c.getColumnIndex("nrocuit"));
+	                      int perade = c.getInt(c.getColumnIndex("perade"));
+	                      int ccs = c.getInt(c.getColumnIndex("ccs"));	                      
+	                      String serv_a_hab = c.getString(c.getColumnIndex("serv_a_hab"));
+	                      String serv_c_red = c.getString(c.getColumnIndex("serv_c_red"));
+	                      String serv_c_con = c.getString(c.getColumnIndex("serv_c_con"));
 
-	                      myOutWriter.append(id+";"+nombre+";"+calle+";"+altura+";"+rutamedidor+";"+lecactual+";"+lecanterior+";"+consumo+";"+estadomedidor);
+	                      myOutWriter.append(nrocta + split + nrosoc + split + calle + split + altura + split + bis + split + pisodpto + split + rutacorr + split + rutamedi + split + condiva + split + fecalt + split + estado + split + lecvie + split + lecant + split + lecact + split + lectom + split + fecvie + split + fecant + split + fecact + split + fectom + split + saldo + split + domcta + split + nrocuit + split + perade + split + ccs + split + serv_a_hab + split + serv_c_red + split + serv_c_con);
 	                      myOutWriter.append("\n");
 	                  }
 
@@ -218,4 +300,5 @@ public class BaseDatos extends SQLiteOpenHelper {
             
         }
 
+	
 }

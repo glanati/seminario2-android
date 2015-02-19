@@ -53,12 +53,12 @@ public class IngresoLecturas extends Activity {
 			if(orden.equals("asc")){
 			
 				
-				fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by altura",null);
+				fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura ASC", null);
 				
 				
 			}else{
 				
-				fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by altura DESC",null);
+				fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura DESC", null);
 				
 			}
 					
@@ -101,7 +101,7 @@ public class IngresoLecturas extends Activity {
 	                	 Intent in = new Intent();
 	                	 
 	                	// mediante el intent pasamos las información al activity_ingreso_consumo
-	                	 in.putExtra("id",array.get(position).getId());		// ID simula al numero de cuenta
+	                	 in.putExtra("id",array.get(position).getNrocuenta());		//numero de cuenta
 	                	 in.putExtra("calle",array.get(position).getCalle());
 	                	 in.putExtra("altura",array.get(position).getAltura());
 	                	 in.putExtra("nombre",array.get(position).getNombre());
@@ -153,12 +153,12 @@ public class IngresoLecturas extends Activity {
 		if(orden.equals("asc")){
 		
 			
-			fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by altura",null);
+			fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura ASC", null);
 			
 			
 		}else{
 			
-			fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo,estadomedidor  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by altura DESC",null);
+			fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura DESC", null);
 			
 		}
 		
@@ -205,7 +205,7 @@ public class IngresoLecturas extends Activity {
                 	 Intent in = new Intent();
                 	 
                 	// mediante el intent pasamos las información al activity_ingreso_consumo
-                	 in.putExtra("id",array.get(position).getId());		// ID simula al numero de cuenta
+                	 in.putExtra("id",array.get(position).getNrocuenta());		//numero de cuenta
                 	 in.putExtra("calle",array.get(position).getCalle());
                 	 in.putExtra("altura",array.get(position).getAltura());
                 	 in.putExtra("nombre",array.get(position).getNombre());

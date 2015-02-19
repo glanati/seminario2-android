@@ -1,5 +1,7 @@
 package com.example.medidores;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,13 +19,18 @@ public class Activity_SeleccionCriterios extends Activity {
 
 	private ArrayAdapter<String> adapter;
 	
-	private String[] arrayRutas = new String[]{"200","202","204","206"};
+	//private String[] arrayRutas = new String[]{"200","202","204","206"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.seleccion_criterios);
+		
+		//agregado
+		BaseDatos base = new BaseDatos(this,"Prueba",null,1);		
+		ArrayList arrayRutas = base.ObtenerRutas();		
+		//agregado
 		
 		//hace que la pantalla se mantenga en modo Portrait
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
