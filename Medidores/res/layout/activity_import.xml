@@ -22,7 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button_registros"
+        android:id="@+id/btn_import"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -30,7 +30,6 @@
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="56dp"
         android:background="#088A08"
-        android:onClick="cargaregistros"
         android:text="@string/importar_registros"
         android:textColor="#FFFFFF" />
 
