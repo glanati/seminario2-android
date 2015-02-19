@@ -26,6 +26,7 @@ public class IngresoLecturas extends Activity {
 	private ArrayList<Registro> array;
 	int request_code = 1;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 					
@@ -44,6 +45,7 @@ public class IngresoLecturas extends Activity {
 					
 			BaseDatos base = new BaseDatos(this,"Prueba",null,1);			
 			array = base.ObtenerLecturas(rutamedidor, orden);
+			
 
 	    	for (int i = 0; i < array.size(); i++) {
 	        	
@@ -52,6 +54,7 @@ public class IngresoLecturas extends Activity {
 	        	adapter = new Adaptador(this,array);
 	        	// seteamos los valores del adapter en el ListView
 	        	lv_domicilios.setAdapter(adapter);
+	        	
 	        	      	
 	        	// acción que se realiza cuando se clickea en algun item del ListView
 	        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
@@ -60,7 +63,7 @@ public class IngresoLecturas extends Activity {
 	                     
 	                	//Toast.makeText(getApplicationContext(),array.get(position).getNombre(),Toast.LENGTH_SHORT).show();
 	                	 Intent in = new Intent();
-	                	 
+	                	 int currentPosition = lv_domicilios.getFirstVisiblePosition();
 	                	// mediante el intent pasamos las información al activity_ingreso_consumo
 	                	 in.putExtra("id",array.get(position).getNrocuenta());		//numero de cuenta
 	                	 in.putExtra("calle",array.get(position).getCalle());
@@ -69,6 +72,7 @@ public class IngresoLecturas extends Activity {
 	                	 in.putExtra("lecturaanterior",array.get(position).getLecanterior());
 	                	 in.putExtra("orden", orden);
 	                	 in.putExtra("rutamedidor", rutamedidor);
+	                	 
 	                	 
 	                	 
 	                     in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
@@ -97,6 +101,7 @@ public class IngresoLecturas extends Activity {
 		
 		lv_domicilios = (ListView) findViewById(R.id.listView_domicilios);
 		
+		
 		// recupero al informacion pasada en el intent
 		Bundle bundle = this.getIntent().getExtras();
 		rutamedidor = Integer.parseInt(bundle.getString("rutamedidor"));
@@ -114,19 +119,14 @@ public class IngresoLecturas extends Activity {
         	
         	// seteamos los valores del adapter en el ListView
         	lv_domicilios.setAdapter(adapter);
+        	 
+        	int currentPosition = lv_domicilios.getFirstVisiblePosition(); //Here u should save the currentPosition anywhere /** Restore the previus saved position **/ listView.setSelection(savedPosition);
+
         	
-        	//for (int i = 0; i < array.size(); i++) {
-			
-        	Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
-        	int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
-        		
-        	if(lecactual != 0){
-        				
-        	}
-        		
-			//}
+
         	
-        	//db.close();  
+
+        	
         	
         	// acción que se realiza cuando se clickea en algun item del ListView
         	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {

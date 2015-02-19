@@ -3,6 +3,7 @@ package com.example.medidores;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +32,7 @@ public class IngresoConsumo extends Activity {
 	private int rutamedidor;
 	private String orden;
 	private int lecanterior;
+
 	
 	String[] arrayEstados = new String[]{"OK","Medidor Roto","Tapado","Ilegible","Sin medidor"};
 
@@ -56,7 +58,9 @@ public class IngresoConsumo extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		String nombre = bundle.getString("nombre").toString();
 		int id = bundle.getInt("id");	// ID simula al numero de cuenta
-			
+		
+		
+		
 		lecanterior = bundle.getInt("lecturaanterior");
 		rutamedidor = bundle.getInt("rutamedidor");
 		orden = bundle.getString("orden");
@@ -136,11 +140,11 @@ public class IngresoConsumo extends Activity {
 						dialog.show();
 					
 					} else {
-					
+						
 						base.ActualizarLectura(idfinal, estado, lectura,lecanterior);
 						db.close();
 						finish();
-					
+						
 					}
 					
 				}
