@@ -24,7 +24,7 @@ public class Adaptador extends ArrayAdapter<Registro> {
 	public View getView(int position, View convertView, ViewGroup parent){
 		
 		int lecanterior = datos.get(position).getLecanterior();
-		int lecactual = datos.get(position).getLecactual();
+		int lecactual = datos.get(position).getLecnueva();
 		String estado = datos.get(position).getEstado();	
 		
 		LayoutInflater inflater = context.getLayoutInflater();
@@ -37,14 +37,14 @@ public class Adaptador extends ArrayAdapter<Registro> {
 		lblSubtitulo.setText(datos.get(position).getCalle() + " " + datos.get(position).getAltura());
 		
 		TextView lblSubtitulo2 =(TextView)item.findViewById(R.id.LblSubtitulo_2);	
-		lblSubtitulo2.setText("Lectura anterior: "+datos.get(position).getLecanterior());
+		lblSubtitulo2.setText("Lectura vieja: "+datos.get(position).getLecanterior());
 		
 		TextView lblSubtitulo3 =(TextView)item.findViewById(R.id.LblSubtitulo_3);	
-		lblSubtitulo3.setText("Lectura actual: "+datos.get(position).getLecactual());
+		lblSubtitulo3.setText("Lectura anterior: "+datos.get(position).getLecactual());
 		
 		TextView lblSubtitulo4 =(TextView)item.findViewById(R.id.LblSubtitulo_4);	
 		//lblSubtitulo4.setText("Consumo: "+datos.get(position).getConsumo());
-		lblSubtitulo4.setText("Consumo: "+datos.get(position).getLecnueva());
+		lblSubtitulo4.setText("Lectura nueva: "+datos.get(position).getLecnueva());
 		
 		TextView lblSubtitulo5 =(TextView)item.findViewById(R.id.LblSubtitulo_5);	
 		lblSubtitulo5.setText("Estado del medidor: "+datos.get(position).getEstado());
