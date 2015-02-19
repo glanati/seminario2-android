@@ -99,16 +99,23 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    
 	  public void ActualizarLectura(final int nrocta,final String estadomed, final int lectura, final int lecanterior) {
 		  
+		  Calendar c = Calendar.getInstance();
+		  
+		  int dia = c.get(Calendar.DAY_OF_MONTH);
+		  String mes = new SimpleDateFormat("MMM").format(c.getTime());
+		  int año = c.get(Calendar.YEAR);
+		  
+		  String fecha = dia + "-" +  mes + "-" + año;
+  
 		  final SQLiteDatabase db = getWritableDatabase();
 		  int valida = 0;
 		  final ContentValues valores = new ContentValues();
 		  
 		  try {	
 			  	
-			//int consumo = lectura - lecanterior;
+			valores.put("fectom", fecha);
 			valores.put("lectom", lectura);
 		  	valores.put("estadomed", estadomed);
-		  	//valores.put("lecactual", lectura);
 	        db.update("CUENTAS", valores, "nrocta=" + nrocta, null);
 	        db.close();  
 		  
