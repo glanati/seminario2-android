@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class ImportActivity extends Activity {
@@ -17,12 +18,17 @@ public class ImportActivity extends Activity {
 	private Button btn_import;
 	private ProgressDialog pDialog;
 	private MiTareaAsincronaDialog tarea2;
+	private EditText rutadesde;
+	private EditText rutahasta;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import);
+		
+		rutadesde = (EditText)findViewById(R.id.editTextRutaDesde);
+		rutahasta = (EditText)findViewById(R.id.editTextRutaHasta);
 		
 		//hace que la pantalla se mantenga en modo Portrait
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -50,6 +56,9 @@ public class ImportActivity extends Activity {
 	public void cargaregistros() {
 	 	
 	 	BaseDatos base = new BaseDatos(this,"Prueba",null,1);
+	 	
+	 	int rdesde = Integer.parseInt(rutadesde.getText().toString());
+	 	int rhasta = Integer.parseInt(rutahasta.getText().toString());
 	 	
 	 	base.ImportSociostoDB();
 	 	base.ImportCuentastoDB();

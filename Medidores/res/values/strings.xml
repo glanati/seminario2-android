@@ -25,5 +25,7 @@
     <string name="exportar_registros">Exportar registros</string>
     <string name="imagen_android">Android</string>
     <string name="listview_text">Default</string>
+    <string name="ruta_desde">Ruta inicial</string>
+    <string name="ruta_hasta">Ruta final</string>
 
 </resources>
