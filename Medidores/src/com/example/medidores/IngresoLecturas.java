@@ -42,49 +42,10 @@ public class IngresoLecturas extends Activity {
 			rutamedidor = Integer.parseInt(bundle.getString("rutamedidor"));
 			orden = bundle.getString("orden");
 					
-			BaseDatos base = new BaseDatos(this,"Prueba",null,1);
-			SQLiteDatabase db = base.getWritableDatabase();
-			
-			// Cursor interface: proporciona acceso de lectura y escritura aleatoria para el result set devuelto por una consulta de base de datos.
-			final Cursor fila;
-			
-			
-			// ordena los registros segun el criterio seleccionado
-			if(orden.equals("asc")){
-			
-				
-				fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura ASC", null);
-				
-				
-			}else{
-				
-				fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura DESC", null);
-				
-			}
-					
-	        fila.moveToFirst();
-	        array = new ArrayList<Registro>();
-	                   
-	        do {
-	        	
-	        	try {
-					
-	        		// recupera los registros y los agrega al arrayList
-		        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
-		        	array.add(r);
-	        		
-				} catch (Exception e) {
-					
-					Toast.makeText(getApplicationContext(), "La base de datos esta vacía, debe importar registros primero.", Toast.LENGTH_SHORT).show();
-					finish();
-					
-					Intent i = new Intent(this, ImportActivity.class );
-					startActivity(i);
-					
-				}
-	        	
-	        	       
-	        } while(fila.moveToNext());
+			BaseDatos base = new BaseDatos(this,"Prueba",null,1);			
+			array = base.ObtenerLecturas(rutamedidor, orden);
+
+	    	for (int i = 0; i < array.size(); i++) {
 	        	
 	        	// creamos el Arrayadapter para listar los registros cargados
 	        //	adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
@@ -114,11 +75,10 @@ public class IngresoLecturas extends Activity {
 	                     startActivity(in);
 	                	   
 	                 }
-	             });
-	        	
-	        	db.close();    
-	        	  	
-	        }
+	             });	        	
+	        	 
+	   		}
+	}
 	        	
 
      @Override
@@ -141,39 +101,11 @@ public class IngresoLecturas extends Activity {
 		Bundle bundle = this.getIntent().getExtras();
 		rutamedidor = Integer.parseInt(bundle.getString("rutamedidor"));
 		orden = bundle.getString("orden");
-		
-		
+				
 		BaseDatos base = new BaseDatos(this,"Prueba",null,1);
-		SQLiteDatabase db = base.getWritableDatabase();
-		
-		// Cursor interface: proporciona acceso de lectura y escritura aleatoria para el result set devuelto por una consulta de base de datos.
-		final Cursor fila;
-			
-		// ordena los registros segun el criterio seleccionado
-		if(orden.equals("asc")){
-		
-			
-			fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura ASC", null);
-			
-			
-		}else{
-			
-			fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.rutamedi =" + rutamedidor + " ORDER BY C.altura DESC", null);
-			
-		}
-		
-		
-        fila.moveToFirst();
-        array = new ArrayList<Registro>();
-       
+		array = base.ObtenerLecturas(rutamedidor, orden);
 
-        do {
-        	
-        	// recupera los registros y los agrega al arrayList
-        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
-        	array.add(r);
-       
-        }while(fila.moveToNext());
+    	for (int i = 0; i < array.size(); i++) {
         	
         	// creamos el Arrayadapter para listar los registros cargados
         	//adapter = new ArrayAdapter<Registro>(this,android.R.layout.simple_list_item_1,array);
@@ -183,18 +115,18 @@ public class IngresoLecturas extends Activity {
         	// seteamos los valores del adapter en el ListView
         	lv_domicilios.setAdapter(adapter);
         	
-        	for (int i = 0; i < array.size(); i++) {
+        	//for (int i = 0; i < array.size(); i++) {
 			
-        		Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
-        		int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
+        	Registro r = (Registro) lv_domicilios.getItemAtPosition(i);
+        	int lecactual = r.getLecactual();	//lecActual es la lectura ingresada
         		
-        		if(lecactual != 0){
+        	if(lecactual != 0){
         				
-        		}
+        	}
         		
-			}
+			//}
         	
-        	db.close();  
+        	//db.close();  
         	
         	// acción que se realiza cuando se clickea en algun item del ListView
         	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
@@ -220,6 +152,8 @@ public class IngresoLecturas extends Activity {
                 	   
                  }
              });
+        
+    	}
 
 	}
 

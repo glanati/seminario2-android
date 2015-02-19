@@ -49,7 +49,31 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    	
 	    }
 	    
-	    public ArrayList ObtenerRutas() {
+	    
+	    public ArrayList<Registro> ObtenerLecturas(int rutamedidor, String orden) {
+	        
+	    	SQLiteDatabase db = getWritableDatabase();
+	    	
+	    	final Cursor fila;
+	
+	    	fila= db.rawQuery("SELECT C.nrocta, S.apeynom, C.calle, C.altura, C.rutamedi, C.lecant, C.lecact, C.lectom, C.estadomed FROM CUENTAS C INNER JOIN SOCIOS S ON S.nrosoc = C.nrosoc WHERE C.estado = 1 AND C.rutamedi =" + rutamedidor + " ORDER BY C.altura " + orden, null);
+	    	
+	    	fila.moveToFirst();
+	        ArrayList <Registro> lecturas = new ArrayList<Registro>();
+	        	        	       
+	        while(fila.moveToNext()){
+	        	
+	        	Registro r = new Registro(fila.getInt(0),fila.getString(1),fila.getString(2),fila.getInt(3),fila.getInt(4),fila.getInt(5),fila.getInt(6),fila.getInt(7),fila.getString(8));
+	        	lecturas.add(r);
+	        		
+			}		
+	    
+	    	db.close();	    	
+	    	return lecturas;
+	        	 
+	    }
+	    
+	    public ArrayList<Integer> ObtenerRutas() {
 	        
 	    	SQLiteDatabase db = getWritableDatabase();
 	    	
@@ -58,7 +82,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    	fila = db.rawQuery("SELECT DISTINCT rutamedi FROM CUENTAS ORDER BY rutamedi ASC", null);
 	    	
 	    	fila.moveToFirst();
-	        ArrayList rutas = new ArrayList<Integer>();
+	        ArrayList<Integer> rutas = new ArrayList<Integer>();
 	        	        	       
 	        while(fila.moveToNext()){
 	        	
