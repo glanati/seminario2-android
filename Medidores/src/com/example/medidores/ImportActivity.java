@@ -1,6 +1,7 @@
 package com.example.medidores;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -18,7 +19,7 @@ public class ImportActivity extends Activity {
 	private Button btn_import;
 	private ProgressDialog pDialog;
 	private MiTareaAsincronaDialog tarea2;
-	
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +36,7 @@ public class ImportActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				pDialog = new ProgressDialog(ImportActivity.this);
-				pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				pDialog.setMessage("Procesando...");
-				pDialog.setCancelable(true);
-				pDialog.setMax(100);
-				
+		
 				tarea2 = new MiTareaAsincronaDialog();
 				tarea2.execute();
 				
@@ -63,44 +59,44 @@ public class ImportActivity extends Activity {
     	@Override
     	protected Boolean doInBackground(Void... params) {
     		
-    		for(int i=1; i<=10; i++) {
-				cargaregistros();
-				
-				publishProgress(i*10);
-				
-				if(isCancelled())
-					break;
-			}
     		
-    		return true;
+				cargaregistros();
+				return true;
     	}
     	
-    	@Override
+    /*	@Override
     	protected void onProgressUpdate(Integer... values) {
     		int progreso = values[0].intValue();
     		
     		pDialog.setProgress(progreso);
-    	}
+    	}*/
     	
     	@Override
     	protected void onPreExecute() {
     		
-    		pDialog.setOnCancelListener(new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					MiTareaAsincronaDialog.this.cancel(true);
-				}
-			});
+    	/*	pDialog = new ProgressDialog(ImportActivity.this);
+			pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			pDialog.setTitle("Importando Base de datos");
+			pDialog.setMessage("Este proceso puede tomar varios minutos");
+			pDialog.setCancelable(false);
+			pDialog.setIndeterminate(true);
+			pDialog.show();*/
+    		dialog = new AlertDialog.Builder(ImportActivity.this).create();
+    		dialog.setMessage("Este proceso puede llevar varios minutos.. Aguarde por favor.");
+			dialog.setTitle("Importando Base de Datos");
+			dialog.setCancelable(false);
+			dialog.show();
+			
     		
-    		pDialog.setProgress(0);
-    		pDialog.show();
     	}
     	
     	@Override
     	protected void onPostExecute(Boolean result) {
     		if(result)
     		{
-    			pDialog.dismiss();
+    			dialog.dismiss();
+    			//pDialog.dismiss();
+    			
     			Toast.makeText(ImportActivity.this, "¡Importación finalizada!", Toast.LENGTH_SHORT).show();
     		}
     	}
@@ -108,6 +104,7 @@ public class ImportActivity extends Activity {
     	@Override
     	protected void onCancelled() {
     		Toast.makeText(ImportActivity.this, "¡Importación cancelada!", Toast.LENGTH_SHORT).show();
+    		finish();
     	}
     	
     }
