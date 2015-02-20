@@ -3,9 +3,7 @@ package com.example.medidores;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -58,8 +56,6 @@ public class IngresoConsumo extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		String nombre = bundle.getString("nombre").toString();
 		int id = bundle.getInt("id");	// ID simula al numero de cuenta
-		
-		
 		
 		lecanterior = bundle.getInt("lecturaanterior");
 		rutamedidor = bundle.getInt("rutamedidor");

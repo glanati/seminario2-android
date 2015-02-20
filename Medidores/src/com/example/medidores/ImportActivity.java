@@ -3,27 +3,24 @@ package com.example.medidores;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public class ImportActivity extends Activity {
 	
 	private Button btn_import;
 	private ProgressDialog pDialog;
-	private MiTareaAsincronaDialog tarea2;
+	private MiTareaAsincronaDialog tarea;
 	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import);
 		
@@ -37,8 +34,8 @@ public class ImportActivity extends Activity {
 			public void onClick(View v) {
 				
 		
-				tarea2 = new MiTareaAsincronaDialog();
-				tarea2.execute();
+				tarea = new MiTareaAsincronaDialog();
+				tarea.execute();
 				
 			}
 		});
@@ -86,8 +83,7 @@ public class ImportActivity extends Activity {
 			dialog.setTitle("Importando Base de Datos");
 			dialog.setCancelable(false);
 			dialog.show();
-			
-    		
+
     	}
     	
     	@Override

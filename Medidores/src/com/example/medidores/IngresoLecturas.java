@@ -164,26 +164,4 @@ public class IngresoLecturas extends Activity {
          }
      }
 	
-//---------------------------------------------------------------------------------------------------------------
-	
-	public void muestra(View view){
-		
-	/*	BaseDatos base = new BaseDatos(this,"BaseDatos",null,1);
-		SQLiteDatabase db = base.getWritableDatabase();
-		
-        Cursor fila= db.rawQuery("select _id,nombre,calle,altura,rutamedidor,lecactual,lecanterior,consumo  from INDIVIDUOS where rutamedidor="+rutamedidor+" order by calle,altura",null);
-        fila.moveToFirst();
-        
-        do{
-        	
-        	System.out.println(fila.getString(1));  
-        	 Toast.makeText(getApplicationContext(),fila.getString(1),Toast.LENGTH_SHORT).show();
-       
-        }while(fila.moveToNext());
-        
-        	db.close();    
-        
-		}*/
-	}
-	
 }

@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 public class BaseDatos extends SQLiteOpenHelper {
 	
-		//private static String DB_PATH = "/data/data/com.example.medidores/databases/";
-	    //private static String DB_NAME = "BaseDatos";
 	    private SQLiteDatabase myDataBase;
 	    private static Context myContext;
 	 
@@ -48,8 +46,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 	    	//db.execSQL("DROP TABLE IF EXISTS INDIVIDUOS");
 	    	
 	    }
-	    
-	    
+	     
 	    public ArrayList<Registro> ObtenerLecturas(int rutamedidor, String orden) {
 	        
 	    	SQLiteDatabase db = getWritableDatabase();

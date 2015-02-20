@@ -40,7 +40,4 @@ public class MainActivity extends Activity {
 	        startActivity(i);
 	 } 
 	
-	 //comentario de prueba - Ale S.
-	 // respuesta - Gonza
-	 // comentario2 - Gonza
 }
