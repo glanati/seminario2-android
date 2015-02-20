@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ public class IngresoLecturas extends Activity {
 	private Adaptador adapter;		// los adapters son una interfaz entre el modelo de datos y los controles de selección (textview, button, etc)
 	private ArrayList<Registro> array;
 	int request_code = 1;
+	private int posicion;
 
 
 	@Override
@@ -55,7 +57,6 @@ public class IngresoLecturas extends Activity {
 	        	// seteamos los valores del adapter en el ListView
 	        	lv_domicilios.setAdapter(adapter);
 	        	
-	        	      	
 	        	// acción que se realiza cuando se clickea en algun item del ListView
 	        	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
 	                 @Override
@@ -74,8 +75,7 @@ public class IngresoLecturas extends Activity {
 	                	 in.putExtra("rutamedidor", rutamedidor);
 	                	 
 	                	 
-	                	 
-	                     in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
+	                	 in.setClass(getApplicationContext(), IngresoConsumo.class);			// es lo mismo que haber seteado arriba Intent in = new Intent(this, IngresoConsumo.class) ???
 	                     startActivity(in);
 	                	   
 	                 }
@@ -92,6 +92,8 @@ public class IngresoLecturas extends Activity {
 		
 		return true;
 	}
+     
+     
      
      @Override
 	protected void onRestart() {
@@ -119,15 +121,8 @@ public class IngresoLecturas extends Activity {
         	
         	// seteamos los valores del adapter en el ListView
         	lv_domicilios.setAdapter(adapter);
-        	 
-        	int currentPosition = lv_domicilios.getFirstVisiblePosition(); //Here u should save the currentPosition anywhere /** Restore the previus saved position **/ listView.setSelection(savedPosition);
-
         	
-
-        	
-
-        	
-        	
+        	 	
         	// acción que se realiza cuando se clickea en algun item del ListView
         	lv_domicilios.setOnItemClickListener(new OnItemClickListener() {
                  @Override
