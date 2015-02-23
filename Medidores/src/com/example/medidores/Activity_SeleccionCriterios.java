@@ -19,6 +19,7 @@ public class Activity_SeleccionCriterios extends Activity {
 	private RadioButton radio_desc;
 
 	private ArrayAdapter<String> adapter;
+	private AdaptadorSpinner adaptador;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,10 @@ public class Activity_SeleccionCriterios extends Activity {
 		radio_asc = (RadioButton)findViewById(R.id.radio_asc);
 		radio_desc = (RadioButton)findViewById(R.id.radio_desc);
 
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,arrayRutas);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-		selec_ruta.setAdapter(adapter);
+		//adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,arrayRutas);
+		adaptador = new AdaptadorSpinner(this,arrayRutas);
+		adaptador.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+		selec_ruta.setAdapter(adaptador);
 		radio_asc.setChecked(true);
 	}
 

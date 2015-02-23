@@ -83,8 +83,8 @@ public class BaseDatos extends SQLiteOpenHelper {
 	        	        	       
 	        while(fila.moveToNext()){
 	        	
-	        	int rutamedi  = fila.getInt(0);
-        		rutas.add(rutamedi);
+	        	int ruta = fila.getInt(0);
+        		rutas.add(ruta);
 	        		
 			}		
 	    
@@ -93,6 +93,38 @@ public class BaseDatos extends SQLiteOpenHelper {
 	        	 
 	    }
 	 
+	    public boolean ObtenerEstadoRuta(int rutamedidor) {
+	        
+	    	SQLiteDatabase db = getWritableDatabase();
+	    	boolean estado = true ;
+	    	
+	    	final Cursor fila;
+	
+	    	fila = db.rawQuery("SELECT lectom FROM CUENTAS where rutamedi="+rutamedidor+" ORDER BY rutamedi ASC", null);
+	    	
+	    	fila.moveToFirst();
+	        ArrayList<Integer> lecturas = new ArrayList<Integer>();
+	        	        	       
+	        while(fila.moveToNext()){
+	        	
+	        	int lec = fila.getInt(0);
+	        	
+	        	if(lec == 0){
+	        		
+	        		estado = false;
+	        		break;
+	        		
+	        		
+	        		
+	        	}
+        		
+	        }		
+	    
+	    	db.close();	    	
+	    	return estado;
+	        	 
+	    }
+	    
 	    
 	  public void ActualizarLectura(final int nrocta,final String estadomed, final int lectura, final int lecanterior) {
 		  
